@@ -13,3 +13,6 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'single-inquiry-368223-c15d6b2b38
 speech_client = speech.SpeechClient()
 
 # Transcribe local media file 
+# using recognition audio resource 
+media_file_name_wav = 'demo audio.wav' #note this will be what henry figures out in arduino
+
