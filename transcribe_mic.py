@@ -24,7 +24,7 @@ import re
 import sys
 
 from google.cloud import speech
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'single-inquiry-368223-995ba2fd4391.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'single-inquiry-368223-ea4b80980b2d.json'
 
 
 import pyaudio
@@ -56,7 +56,7 @@ class MicrophoneStream(object):
             rate=self._rate,
             input=True,
             # define microphone input index
-            input_device_index=0,
+            input_device_index=1,
             frames_per_buffer=self._chunk,
             # Run the audio stream asynchronously to fill the buffer object.
             # This is necessary so that the input device's buffer doesn't
@@ -159,7 +159,7 @@ def listen_print_loop(responses):
 def main():
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
-    language_code = "en-US"  # a BCP-47 language tag
+    language_code = "ko-KR"  # a BCP-47 language tag
 
     client = speech.SpeechClient()
     config = speech.RecognitionConfig(
