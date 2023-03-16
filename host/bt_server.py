@@ -2,6 +2,11 @@
 import serial
 import pyautogui
 
+# TODO: 
+#   handle interruptions to socket
+#   speech to text
+#   cursor movement
+
 s = serial.Serial('COM4')
 
 def parse_packet(pkt_array):
@@ -24,8 +29,6 @@ def parse_packet(pkt_array):
                 pyautogui.mouseDown(button='middle')
             elif pkt_array[1] == '0':
                  pyautogui.mouseUp(button='middle')
-        case 'PTT':
-            print("PTT")
 
 while True:
     rec = s.readline()

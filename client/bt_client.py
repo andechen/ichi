@@ -9,19 +9,19 @@ from multiprocessing import Process
 def button_listener(button_obj, button_name):
     button_stream = ""
 
-    while True:
-        button_obj.update()
+    # while True:
+    button_obj.update()
 
-        if button_obj.fell:
-            print(button_name + " Down")
-            button_stream = button_name + "$1\n"
-        if button_obj.rose:
-            print(button_name + " Release")
-            button_stream = button_name + "$0\n"
+    if button_obj.fell:
+        print(button_name + " Down")
+        button_stream = button_name + "$1\n"
+    if button_obj.rose:
+        print(button_name + " Release")
+        button_stream = button_name + "$0\n"
 
-        if button_stream != "":
-            s.send(button_stream.encode())
-            button_stream = ""
+    if button_stream != "":
+        s.send(button_stream.encode())
+        button_stream = ""
 
 #################### HOST DEVICE INFORMATION ####################
 host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
@@ -51,21 +51,27 @@ pin_MB_M.direction = digitalio.Direction.INPUT
 pin_MB_M.pull = digitalio.Pull.UP
 mb_m = Debouncer(pin_MB_M)
 
+# PUSH TO TALK BUTTON
+pin_PTT = digitalio.DigitalInOut(board.D23)
+pin_PTT.direction = digitalio.Direction.INPUT
+pin_PTT.pull = digitalio.Pull.UP
+ptt = Debouncer(pin_PTT)
+
 #################### SETUP MULTI-PROCESSING ####################
-# processlist = []
-# processlist.append(Process(target=button_listener(mb_l)))
-# processlist.append(Process(target=button_listener(mb_r)))
-
-# for p in processlist:
-#     p.start()
-
-# for p in processlist:
-#     p.join()
+processlist = []
+processlist.append(Process(target=button_listener(mb_l)))
+processlist.append(Process(target=button_listener(mb_r)))
+processlist.append(Process(target=button_listener(ptt)))
 
 # Send data
 try:
     while True:
-        button_listener(mb_l, "MBL")
+        # button_listener(mb_l, "MBL")
+        for p in processlist:
+            p.start()
+
+        # for p in processlist:
+        #     p.join()
 
 except KeyboardInterrupt:
     s.close()
