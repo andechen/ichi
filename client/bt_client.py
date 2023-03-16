@@ -13,7 +13,7 @@ port = 4                            # Connect to COM4
 # SET UP CONNECTION
 s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
 s.connect((host_addr, port))
-print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + port + "...")
+print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + str(port) + "...")
 
 # SETUP GPIO PINS
 pin_MB_L = digitalio.DigitalInOut(board.D22)
