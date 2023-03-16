@@ -20,30 +20,24 @@ port = 4                            # Connect to COM4
 pin_MB_L = digitalio.DigitalInOut(board.D22)
 pin_MB_L.direction = digitalio.Direction.INPUT
 pin_MB_L.pull = digitalio.Pull.UP
-mb_l = Debouncer(pin_MB_L, 0.05)
+mb_l = Debouncer(pin_MB_L, interval=0.5)
 
 pin_MB_R = digitalio.DigitalInOut(board.D4)
 pin_MB_R.direction = digitalio.Direction.INPUT
 pin_MB_R.pull = digitalio.Pull.UP
-mb_r = Debouncer(pin_MB_R, 0.05)
+mb_r = Debouncer(pin_MB_R, interval=0.5)
 
 # PROCESS TASKS
 def button_listener(button):
     while True:
         button.update()
 
-        if button.fell:
-            time_down = time.time()
+        # if button.fell:
+        #     time_down = time.time()
         if button.rose:
-            time_up = time.time() - time_down
-            if time_up - time_down <= 0.5:
-                print("Double Click")
-            else:
-                print("Click")
-        # if button.value:
-        #     print("Not Pressed")
-        # else:
-        #     print("Pressed")
+            # time_up = time.time() - time_down
+            # if time_up - time_down > 0.5:
+            print("Click")
 
 # SETUP MULTI-PROCESSING
 # processlist = []
@@ -55,7 +49,6 @@ def button_listener(button):
 # 
 # for p in processlist:
 #     p.join()
-
 
 # Send data
 try:
