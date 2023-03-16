@@ -28,17 +28,20 @@ mb_r = Debouncer(pin_MB_R)
 
 # PROCESS TASKS
 def button_listener(button):
+    button_stream = ""
+
     while True:
         button.update()
 
         if button.fell:
             print("Down")
-            data = "Down\n"
-            s.send(data.encode())
+            button_stream = "Down\n"
         if button.rose:
             print("Release")
-            data = "Release\n"
-            s.send(data.encode())
+            button_stream = "Release\n"
+
+        if button_stream != "":
+            s.send(button_stream.encode())
 
 # SETUP MULTI-PROCESSING
 # processlist = []
