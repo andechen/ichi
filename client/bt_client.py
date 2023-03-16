@@ -11,8 +11,8 @@ host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
 port = 4                            # Connect to COM4
 
 # SET UP CONNECTION
-s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-s.connect((host_addr, port))
+# s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+# s.connect((host_addr, port))
 
 # SETUP GPIO PINS
 pin_MB_L = digitalio.DigitalInOut(board.D22)
@@ -51,12 +51,14 @@ try:
 
         if ~mb_l.value:
             data = "Left Click\n"
-            s.send(data.encode())
+            # s.send(data.encode())
 
         if ~mb_r.value:
             data = "Left Click\n"
-            s.send(data.encode())
+            # s.send(data.encode())
 
+        print(data)
+        
 except KeyboardInterrupt:
     s.close()
     print('\n')

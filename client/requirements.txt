@@ -1,5 +1,4 @@
-socket
-board
-digitalio
-adafruit_debouncer
-multiprocessing
+sockets
+Adafruit-Blinka
+adafruit-circuitpython-debouncer
+multiprocess
