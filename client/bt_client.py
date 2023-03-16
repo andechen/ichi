@@ -9,7 +9,7 @@ from multiprocessing import Process
 #################### PROCESS TASKS ####################
 def button_listener(button):
     button_stream = ""
-    print(str(button))
+    print(button)
 
     while True:
         button.update()
