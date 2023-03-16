@@ -35,13 +35,14 @@ def button_listener(button):
 
         if button.fell:
             print("Down")
-            button_stream = "Down\n"
+            button_stream = "Down"
         if button.rose:
             print("Release")
-            button_stream = "Release\n"
+            button_stream = "Release"
 
         if button_stream != "":
             s.send(button_stream.encode())
+            button_stream = ""
 
 # SETUP MULTI-PROCESSING
 # processlist = []
