@@ -9,6 +9,7 @@ from multiprocessing import Process
 #################### PROCESS TASKS ####################
 def button_listener(button):
     button_stream = ""
+    print(str(button))
 
     while True:
         button.update()
@@ -53,20 +54,20 @@ pin_MB_M.pull = digitalio.Pull.UP
 mb_m = Debouncer(pin_MB_M)
 
 #################### SETUP MULTI-PROCESSING ####################
-processlist = []
-processlist.append(Process(target=button_listener(mb_l)))
-processlist.append(Process(target=button_listener(mb_r)))
+# processlist = []
+# processlist.append(Process(target=button_listener(mb_l)))
+# processlist.append(Process(target=button_listener(mb_r)))
 
-for p in processlist:
-    p.start()
+# for p in processlist:
+#     p.start()
 
-for p in processlist:
-    p.join()
+# for p in processlist:
+#     p.join()
 
 # Send data
 try:
     while True:
-        # button_listener(mb_l)
+        button_listener(mb_l)
 
 except KeyboardInterrupt:
     s.close()
