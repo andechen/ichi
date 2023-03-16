@@ -34,11 +34,11 @@ def button_listener(button):
         if button.fell:
             print("Down")
             data = "Down\n"
+            s.send(data.encode())
         if button.rose:
             print("Release")
             data = "Release\n"
-
-        s.send(data.encode())
+            s.send(data.encode())
 
 # SETUP MULTI-PROCESSING
 # processlist = []
