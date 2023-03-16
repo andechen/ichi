@@ -31,7 +31,8 @@ import pyaudio
 from six.moves import queue
 
 # Audio recording parameters
-RATE = 16000
+# RATE = 16000
+RATE = 44100
 CHUNK = int(RATE / 10)  # 100ms
 
 
