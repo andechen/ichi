@@ -26,10 +26,18 @@ pin_MB_R.pull = digitalio.Pull.UP
 mb_r = Debouncer(pin_MB_R)
 
 # PROCESS TASKS
-# def button_listener(button):
-#     while True:
-#         if ~button.value:
-#             print(button + "was pressed")
+def button_listener(button):
+    while True:
+        button.update()
+
+        if button.fell:
+            print(button + " pressed")
+        if button.rose:
+            print(button + " released")
+        if button.value:
+            print(button + " not pressed")
+        else:
+            print(button + " pressed")
 # 
 # SETUP MULTI-PROCESSING
 # processlist = []
@@ -46,19 +54,11 @@ mb_r = Debouncer(pin_MB_R)
 # Send data
 try:
     while True:
-        mb_l.update()
-        mb_r.update()
+        button_listener(mb_l)
 
-        if ~mb_l.value:
-            data = "Left Click\n"
-            # s.send(data.encode())
+        # data = "\n"
+        # s.send(data.encode())
 
-        if ~mb_r.value:
-            data = "Left Click\n"
-            # s.send(data.encode())
-
-        print(data)
-        
 except KeyboardInterrupt:
     s.close()
     print('\n')
