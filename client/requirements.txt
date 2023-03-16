@@ -1,5 +1,5 @@
-google-cloud-speech==2.16.2
-pyaudio==0.2.12
-six==1.16.0
-rpi.gpio==0.7.1
-pyautogui==0.9.53
+socket
+board
+digitalio
+adafruit_debouncer
+multiprocessing

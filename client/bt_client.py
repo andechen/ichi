@@ -4,6 +4,8 @@ import digitalio
 from adafruit_debouncer import Debouncer
 from multiprocessing import Process
 
+#! python3 -m pip install -r requirements.txt
+
 # HOST DEVICE INFORMATION
 host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
 port = 4                            # Connect to COM4
