@@ -35,10 +35,10 @@ def button_listener(button):
 
         if button.fell:
             print("Down")
-            button_stream = "Down"
+            button_stream = "Down\n"
         if button.rose:
             print("Release")
-            button_stream = "Release"
+            button_stream = "Release\n"
 
         if button_stream != "":
             s.send(button_stream.encode())
