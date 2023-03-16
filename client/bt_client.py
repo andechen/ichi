@@ -7,19 +7,18 @@ from multiprocessing import Process
 #! python3 -m pip install -r requirements.txt
 
 #################### PROCESS TASKS ####################
-def button_listener(button):
+def button_listener(button_obj, button_name):
     button_stream = ""
-    print(button)
 
     while True:
-        button.update()
+        button_obj.update()
 
-        if button.fell:
+        if button_obj.fell:
             print("Down")
-            button_stream = "Down\n"
-        if button.rose:
+            button_stream = button_name + "$1\n"
+        if button_obj.rose:
             print("Release")
-            button_stream = "Release\n"
+            button_stream = button_name + "$0\n"
 
         if button_stream != "":
             s.send(button_stream.encode())
@@ -67,7 +66,7 @@ mb_m = Debouncer(pin_MB_M)
 # Send data
 try:
     while True:
-        button_listener(mb_l)
+        button_listener(mb_l, "MBL")
 
 except KeyboardInterrupt:
     s.close()
