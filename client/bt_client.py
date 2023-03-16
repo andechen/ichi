@@ -36,7 +36,7 @@ def button_listener(button):
             time_down = time.time()
         if button.rose:
             time_up = time.time() - time_down
-            if time_up - time_down > 3:
+            if time_up - time_down <= 0.5:
                 print("Double Click")
             else:
                 print("Click")
