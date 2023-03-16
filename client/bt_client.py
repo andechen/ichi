@@ -1,5 +1,4 @@
 import socket
-import time
 import board
 import digitalio
 from adafruit_debouncer import Debouncer
@@ -12,9 +11,9 @@ host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
 port = 4                            # Connect to COM4
 
 # SET UP CONNECTION
-# s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-# s.connect((host_addr, port))
-# print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + port + "...")
+s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+s.connect((host_addr, port))
+print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + port + "...")
 
 # SETUP GPIO PINS
 pin_MB_L = digitalio.DigitalInOut(board.D22)
@@ -34,20 +33,21 @@ def button_listener(button):
 
         if button.fell:
             print("Down")
-            # time_down = time.time()
+            data = "Down\n"
         if button.rose:
-            # time_up = time.time() - time_down
-            # if time_up - time_down > 0.5:
             print("Release")
+            data = "Release\n"
+
+        s.send(data.encode())
 
 # SETUP MULTI-PROCESSING
 # processlist = []
 # processlist.append(Process(target=button_listener(mb_l)))
 # processlist.append(Process(target=button_listener(mb_r)))
-# 
+
 # for p in processlist:
 #     p.start()
-# 
+
 # for p in processlist:
 #     p.join()
 
@@ -55,9 +55,6 @@ def button_listener(button):
 try:
     while True:
         button_listener(mb_l)
-
-        # data = "\n"
-        # s.send(data.encode())
 
 except KeyboardInterrupt:
     s.close()
