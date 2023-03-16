@@ -19,12 +19,12 @@ port = 4                            # Connect to COM4
 pin_MB_L = digitalio.DigitalInOut(board.D22)
 pin_MB_L.direction = digitalio.Direction.INPUT
 pin_MB_L.pull = digitalio.Pull.UP
-mb_l = Debouncer(pin_MB_L, 5)
+mb_l = Debouncer(pin_MB_L, 0.05)
 
 pin_MB_R = digitalio.DigitalInOut(board.D4)
 pin_MB_R.direction = digitalio.Direction.INPUT
 pin_MB_R.pull = digitalio.Pull.UP
-mb_r = Debouncer(pin_MB_R, 5)
+mb_r = Debouncer(pin_MB_R, 0.05)
 
 # PROCESS TASKS
 def button_listener(button):
