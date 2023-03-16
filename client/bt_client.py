@@ -1,10 +1,9 @@
+#! python3 -m pip install -r requirements.txt
 import socket
 import board
 import digitalio
 from adafruit_debouncer import Debouncer
 from multiprocessing import Process
-
-#! python3 -m pip install -r requirements.txt
 
 #################### PROCESS TASKS ####################
 def button_listener(button_obj, button_name):
@@ -14,10 +13,10 @@ def button_listener(button_obj, button_name):
         button_obj.update()
 
         if button_obj.fell:
-            print("Down")
+            print(button_name + " Down")
             button_stream = button_name + "$1\n"
         if button_obj.rose:
-            print("Release")
+            print(button_name + " Release")
             button_stream = button_name + "$0\n"
 
         if button_stream != "":
