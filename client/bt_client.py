@@ -59,9 +59,9 @@ ptt = Debouncer(pin_PTT)
 
 #################### SETUP MULTI-PROCESSING ####################
 processlist = []
-processlist.append(Process(target=button_listener(mb_l)))
-processlist.append(Process(target=button_listener(mb_r)))
-processlist.append(Process(target=button_listener(ptt)))
+processlist.append(Process(target=button_listener(mb_l, "MBL")))
+processlist.append(Process(target=button_listener(mb_r, "MBR")))
+processlist.append(Process(target=button_listener(ptt, "PTT")))
 
 # Send data
 try:
