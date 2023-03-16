@@ -1,0 +1,16 @@
+WinMetadata\Windows.winmd
+App.xbf
+BluetoothRfcommChat.xr.xml
+MainPage.xbf
+Scenario1_ChatClient.xbf
+Scenario2_ChatServer.xbf
+Scenario3_BgChatServer.xbf
+Styles\Styles.xbf
+Assets\microsoft-sdk.png
+Assets\placeholder-sdk.png
+Assets\smalltile-sdk.png
+Assets\splash-sdk.png
+Assets\squaretile-sdk.png
+Assets\storelogo-sdk.png
+Assets\tile-sdk.png
+Assets\windows-sdk.png

@@ -5,6 +5,7 @@ port = 3  # Normal port for rfcomm?
 buf_size = 1024
 
 s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind((adapter_addr, port))
 s.listen(1)
 try:
