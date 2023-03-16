@@ -42,7 +42,7 @@ def button_listener(button):
 
         if button_stream != "":
             s.send(button_stream.encode())
-            button_stream = ""
+            # button_stream = ""
 
 # SETUP MULTI-PROCESSING
 # processlist = []
