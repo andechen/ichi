@@ -1,4 +1,5 @@
 import socket
+import time
 import board
 import digitalio
 from adafruit_debouncer import Debouncer
@@ -32,13 +33,17 @@ def button_listener(button):
         button.update()
 
         if button.fell:
-            print("Pressed")
+            time_down = time.time()
         if button.rose:
-            print("Released")
-        if button.value:
-            print("Not Pressed")
-        else:
-            print("Pressed")
+            time_up = time.time() - time_down
+            if time_up - time_down > 3:
+                print("Double Click")
+            else:
+                print("Click")
+        # if button.value:
+        #     print("Not Pressed")
+        # else:
+        #     print("Pressed")
 
 # SETUP MULTI-PROCESSING
 # processlist = []

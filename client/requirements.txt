@@ -1,3 +1,4 @@
+python-time
 sockets
 Adafruit-Blinka
 adafruit-circuitpython-debouncer
