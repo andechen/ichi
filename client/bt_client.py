@@ -1,29 +1,60 @@
 import socket
-from time import sleep
+import board
+import digitalio
+from adafruit_debouncer import Debouncer
+from multiprocessing import Process
 
-# Device specific information
-bd_addr = "7C:50:79:3E:8F:2C"
-port = 4 # This needs to match M5Stick setting
+# HOST DEVICE INFORMATION
+host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
+port = 4                            # Connect to COM4
 
-# Establish connection and setup serial communication
+# SET UP CONNECTION
 s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-s.connect((bd_addr, port))
+s.connect((host_addr, port))
 
-# Send and receive data
-while True:
-    s.sendall(b'X\n')
-    data = s.recv(1024)
-    print(data)
-    sleep(0.5)
-s.close()
+# SETUP GPIO PINS
+pin_MB_L = digitalio.DigitalInOut(board.D22)
+pin_MB_L.direction = digitalio.Direction.INPUT
+pin_MB_L.pull = digitalio.Pull.UP
+mb_l = Debouncer(pin_MB_L)
 
-# bd_addr = "7C:50:79:3E:8F:2C"
+pin_MB_R = digitalio.DigitalInOut(board.D4)
+pin_MB_R.direction = digitalio.Direction.INPUT
+pin_MB_R.pull = digitalio.Pull.UP
+mb_r = Debouncer(pin_MB_R)
 
-# port = 1
+# PROCESS TASKS
+# def button_listener(button):
+#     while True:
+#         if ~button.value:
+#             print(button + "was pressed")
+# 
+# SETUP MULTI-PROCESSING
+# processlist = []
+# processlist.append(Process(target=button_listener(mb_l)))
+# processlist.append(Process(target=button_listener(mb_r)))
+# 
+# for p in processlist:
+#     p.start()
+# 
+# for p in processlist:
+#     p.join()
 
-# sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
-# sock.connect((bd_addr, port))
 
-# sock.send("Hello World!")
+# Send data
+try:
+    while True:
+        mb_l.update()
+        mb_r.update()
 
-# sock.close()
+        if ~mb_l.value:
+            data = "Left Click\n"
+            s.send(data.encode())
+
+        if ~mb_r.value:
+            data = "Left Click\n"
+            s.send(data.encode())
+
+except KeyboardInterrupt:
+    s.close()
+    print('\n')
