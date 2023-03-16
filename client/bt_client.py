@@ -31,13 +31,13 @@ def button_listener(button):
         button.update()
 
         if button.fell:
-            print(button + " pressed")
+            print("Pressed")
         if button.rose:
-            print(button + " released")
+            print("Released")
         if button.value:
-            print(button + " not pressed")
+            print("Not Pressed")
         else:
-            print(button + " pressed")
+            print("Pressed")
 # 
 # SETUP MULTI-PROCESSING
 # processlist = []
