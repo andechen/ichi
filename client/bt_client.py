@@ -32,12 +32,13 @@ def button_listener(button):
     while True:
         button.update()
 
-        # if button.fell:
-        #     time_down = time.time()
+        if button.fell:
+            print("Down")
+            # time_down = time.time()
         if button.rose:
             # time_up = time.time() - time_down
             # if time_up - time_down > 0.5:
-            print("Click")
+            print("Release")
 
 # SETUP MULTI-PROCESSING
 # processlist = []
