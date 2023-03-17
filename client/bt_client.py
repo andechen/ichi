@@ -3,7 +3,6 @@ import socket
 import board
 import digitalio
 from adafruit_debouncer import Debouncer
-from multiprocessing import Process
 
 #################### PROCESS TASKS ####################
 def button_listener(button_obj, button_name):
@@ -57,24 +56,12 @@ pin_PTT.direction = digitalio.Direction.INPUT
 pin_PTT.pull = digitalio.Pull.UP
 ptt = Debouncer(pin_PTT)
 
-#################### SETUP MULTI-PROCESSING ####################
-# processlist = []
-# processlist.append(Process(target=button_listener(mb_l, "MBL")))
-# processlist.append(Process(target=button_listener(mb_r, "MBR")))
-# processlist.append(Process(target=button_listener(ptt, "PTT")))
-
 # Send data
 try:
     while True:
         button_listener(mb_l, "MBL")
         button_listener(mb_r, "MBR")
         button_listener(ptt, "PTT")
-
-        # for p in processlist:
-        #     p.start()
-
-        # for p in processlist:
-        #     p.join()
 
 except KeyboardInterrupt:
     s.close()
