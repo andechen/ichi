@@ -59,6 +59,13 @@ def setup_io():
     x_channel = 1
     y_chanenl = 2
 
+# SETUP MICROPHONE FOR SPEECH TO TEXT
+def setup_mic():
+    global r
+    r = sr.Recognizer()
+    global speech
+    speech = sr.Microphone(device_index=1)  
+
 # LISTEN FOR BUTTON PRESS AND RELEASE
 def button_listener(button_obj, button_name):
     button_stream = ""
@@ -80,27 +87,24 @@ def button_listener(button_obj, button_name):
         button_stream = ""
 
 # JOYSTICK HELPER FUNCTIONS
-def read_spi_data_channel(channel):
-    adc = spi.xfer2([1, (8 + channel) << 4, 0])
-    return ((adc[1] & 3) << 8) + adc[2]
+# def read_spi_data_channel(channel):
+#     adc = spi.xfer2([1, (8 + channel) << 4, 0])
+#     return ((adc[1] & 3) << 8) + adc[2]
 
 # def dampen_resting_pos(axis_val, centered_val):
 #     d = math.fabs(axis_val - centered_val)
 #     return d < 20
 
 #TODO:
-def joystick_listener(x_channel, y_channel):
-    x_pos = read_spi_data_channel(x_channel)
-    y_pos = read_spi_data_channel(y_channel)
+# def joystick_listener(x_channel, y_channel):
+#     x_pos = read_spi_data_channel(x_channel)
+#     y_pos = read_spi_data_channel(y_channel)
     #TODO: convert change in pos to number of clicks
 
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
     mic_stream = ""
-    ptt.update()
-
-    r = sr.Recognizer()
-    speech = sr.Microphone(device_index=1)        
+    ptt.update()      
 
     # Detect push to talk button pressed
     if ptt.fell:
@@ -111,10 +115,11 @@ def speech_to_text_handler():
             print("Say something...")
             audio = r.adjust_for_ambient_noise(source)
             audio = r.listen(source)
+            
         try:
             transcribed_text = r.recognize_google(audio, language = "en-US")
             
-            # print("You said: " + recog)
+            print("You said: " + transcribed_text)
         except sr.UnknownValueError:
             print("Google Speech Recognition could not understand audio")
         except sr.RequestError as e:
@@ -131,6 +136,7 @@ def speech_to_text_handler():
 def ichi_client():
     setup_connection()
     setup_io()
+    setup_mic()
 
     try:
         while True:
