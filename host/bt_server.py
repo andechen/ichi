@@ -56,5 +56,5 @@ def ichi_host():
         split_pkt = recvd_packet.split("$")
         parse_packet(split_pkt)
 
-if "__name__" == "__main__":
+if __name__ == "__main__":
     ichi_host()

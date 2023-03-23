@@ -152,5 +152,5 @@ def ichi_client():
         s.close()
         print('\n')
 
-if "__name__" == "__main__":
+if __name__ == "__main__":
     ichi_client()
