@@ -63,8 +63,8 @@ def setup_io():
 def setup_mic():
     global r
     r = sr.Recognizer()
-    global speech
-    speech = sr.Microphone(device_index=1)  
+    # global speech
+    # speech = sr.Microphone(device_index=1)  
 
 # LISTEN FOR BUTTON PRESS AND RELEASE
 def button_listener(button_obj, button_name):
@@ -73,8 +73,11 @@ def button_listener(button_obj, button_name):
 
     # Detect button pressed
     if button_obj.fell:
-        print(button_name + " Down")
-        button_stream = button_name + "$1\n"
+        if button_name == 'PTT':
+            speech_to_text_handler()
+        else:
+            print(button_name + " Down")
+            button_stream = button_name + "$1\n"
 
     # Detect button released
     if button_obj.rose:
@@ -104,39 +107,34 @@ def button_listener(button_obj, button_name):
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
     mic_stream = ""
-    ptt.update()      
+    print("STARTING RECORDING...")
 
-    # Detect push to talk button pressed
-    if ptt.fell:
-        # Build packet with flag and transcribed text
-        print(ptt + " Down")
+    # with speech as source:
+    #     print("Say something...")
+    #     audio = r.adjust_for_ambient_noise(source)
+    #     audio = r.listen(source)
 
-        with speech as source:
-            print("Say something...")
-            audio = r.adjust_for_ambient_noise(source)
-            audio = r.listen(source)
-
-        # try:
-        transcribed_text = r.recognize_google(audio, language = "en-US")
+    #     try:
+    #         transcribed_text = r.recognize_google(audio, language = "en-US")
             
-        print("You said: " + transcribed_text)
-        # except sr.UnknownValueError:
-        #     print("Google Speech Recognition could not understand audio")
-        # except sr.RequestError as e:
-        #     print("Could not request results from Google Speech Recognition service; {0}".format(e))
+    #         print("You said: " + transcribed_text)
+    #     except sr.UnknownValueError:
+    #         print("Google Speech Recognition could not understand audio")
+    #     except sr.RequestError as e:
+    #         print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
-        mic_stream = "s2t$" + transcribed_text
+    #     mic_stream = "s2t$" + transcribed_text
 
-    # Send packet to host PC
-    if mic_stream != "":
-        s.send(mic_stream.encode())
-        mic_stream = ""
+    # # Send packet to host PC
+    # if mic_stream != "":
+    #     s.send(mic_stream.encode())
+    #     mic_stream = ""
 
 ############################################################
 def ichi_client():
     setup_connection()
     setup_io()
-    # setup_mic()
+    setup_mic()
 
     try:
         while True:
