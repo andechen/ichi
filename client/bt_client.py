@@ -39,11 +39,11 @@ def setup_io():
     mb_r = Debouncer(pin_MB_R)
 
     # MIDDLE CLICK BUTTON
-    pin_MB_M = digitalio.DigitalInOut(board.D4)     #TODO: Update joystick select pin number
-    pin_MB_M.direction = digitalio.Direction.INPUT
-    pin_MB_M.pull = digitalio.Pull.UP
-    global mb_m
-    mb_m = Debouncer(pin_MB_M)
+    # pin_MB_M = digitalio.DigitalInOut(board.D4)     #TODO: Update joystick select pin number
+    # pin_MB_M.direction = digitalio.Direction.INPUT
+    # pin_MB_M.pull = digitalio.Pull.UP
+    # global mb_m
+    # mb_m = Debouncer(pin_MB_M)
 
     # PUSH TO TALK BUTTON
     pin_PTT = digitalio.DigitalInOut(board.D23)
@@ -53,11 +53,11 @@ def setup_io():
     ptt = Debouncer(pin_PTT)
 
     # TODO: SPI BUS FOR JOYSTICK
-    spi = spidev.SpiDev()
-    spi.open(0, 0)
+    # spi = spidev.SpiDev()
+    # spi.open(0, 0)
 
-    x_channel = 1
-    y_chanenl = 2
+    # x_channel = 1
+    # y_chanenl = 2
 
 # SETUP MICROPHONE FOR SPEECH TO TEXT
 def setup_mic():
@@ -142,6 +142,7 @@ def ichi_client():
         while True:
             button_listener(mb_l, "MBL")
             button_listener(mb_r, "MBR")
+            button_listener(ptt, "PTT")
             # speech_to_text_handler()
 
     except KeyboardInterrupt:
