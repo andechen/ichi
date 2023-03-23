@@ -63,8 +63,8 @@ def setup_io():
 def setup_mic():
     global r
     r = sr.Recognizer()
-    # global speech
-    # speech = sr.Microphone(device_index=1)  
+    global speech
+    speech = sr.Microphone(device_index=1)  
 
 # LISTEN FOR BUTTON PRESS AND RELEASE
 def button_listener(button_obj, button_name):
