@@ -1,3 +1,6 @@
 sockets
+math
+spidev
 Adafruit-Blinka
 adafruit-circuitpython-debouncer
+SpeechRecognition
