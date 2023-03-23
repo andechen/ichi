@@ -115,15 +115,15 @@ def speech_to_text_handler():
             print("Say something...")
             audio = r.adjust_for_ambient_noise(source)
             audio = r.listen(source)
+
+        # try:
+        transcribed_text = r.recognize_google(audio, language = "en-US")
             
-        try:
-            transcribed_text = r.recognize_google(audio, language = "en-US")
-            
-            print("You said: " + transcribed_text)
-        except sr.UnknownValueError:
-            print("Google Speech Recognition could not understand audio")
-        except sr.RequestError as e:
-            print("Could not request results from Google Speech Recognition service; {0}".format(e))
+        print("You said: " + transcribed_text)
+        # except sr.UnknownValueError:
+        #     print("Google Speech Recognition could not understand audio")
+        # except sr.RequestError as e:
+        #     print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
         mic_stream = "s2t$" + transcribed_text
 
@@ -142,7 +142,7 @@ def ichi_client():
         while True:
             button_listener(mb_l, "MBL")
             button_listener(mb_r, "MBR")
-            speech_to_text_handler()
+            # speech_to_text_handler()
 
     except KeyboardInterrupt:
         s.close()
