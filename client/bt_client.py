@@ -16,21 +16,18 @@ def setup_connection():
     host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
     port = 4                            # Connect to COM4
 
-    print("What")
     # SET UP CONNECTION
     global s
-    while 1:
-        try:
-            s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-            s.connect((host_addr, port))
-            print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + str(port))
-            break
-        except OSError:
-            print("Error establishing socket...")
-        except TimeoutError:
-            print("Connection Timeout...")
-        except InterruptedError:
-            print("Connection Interrupted...")
+    try:
+        s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+        s.connect((host_addr, port))
+        print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + str(port))
+    except OSError:
+        print("Error establishing socket...")
+    except TimeoutError:
+        print("Connection Timeout...")
+    except InterruptedError:
+        print("Connection Interrupted...")
 
 # SETUP GPIO PINS AND DEBOUNCING
 def setup_io():
