@@ -73,10 +73,10 @@ def button_listener(button_obj, button_name):
 
     # Detect button pressed
     if button_obj.fell:
+        print(button_name + " Down")
         if button_name == 'PTT':
             speech_to_text_handler()
         else:
-            print(button_name + " Down")
             button_stream = button_name + "$1\n"
 
     # Detect button released
@@ -90,19 +90,21 @@ def button_listener(button_obj, button_name):
         button_stream = ""
 
 # JOYSTICK HELPER FUNCTIONS
-# def read_spi_data_channel(channel):
-#     adc = spi.xfer2([1, (8 + channel) << 4, 0])
-#     return ((adc[1] & 3) << 8) + adc[2]
+"""
+def read_spi_data_channel(channel):
+    adc = spi.xfer2([1, (8 + channel) << 4, 0])
+    return ((adc[1] & 3) << 8) + adc[2]
 
-# def dampen_resting_pos(axis_val, centered_val):
-#     d = math.fabs(axis_val - centered_val)
-#     return d < 20
+def dampen_resting_pos(axis_val, centered_val):
+    d = math.fabs(axis_val - centered_val)
+    return d < 20
 
 #TODO:
-# def joystick_listener(x_channel, y_channel):
-#     x_pos = read_spi_data_channel(x_channel)
-#     y_pos = read_spi_data_channel(y_channel)
-    #TODO: convert change in pos to number of clicks
+def joystick_listener(x_channel, y_channel):
+    x_pos = read_spi_data_channel(x_channel)
+    y_pos = read_spi_data_channel(y_channel)
+    # TODO: convert change in pos to number of clicks
+"""
 
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
