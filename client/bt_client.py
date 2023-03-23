@@ -16,6 +16,7 @@ def setup_connection():
     host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
     port = 4                            # Connect to COM4
 
+    print("What")
     # SET UP CONNECTION
     global s
     while 1:
