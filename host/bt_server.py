@@ -48,9 +48,13 @@ def parse_packet(pkt_array):
 #     if (gazepoint_y) > MAX_Y:
 #         gazepoint_y = gazepoint_y - 1
 
-while True:
-    rec = s.readline()
-    recvd_packet = rec.decode()
+def ichi_host():
+    while True:
+        rec = s.readline()
+        recvd_packet = rec.decode()
 
-    split_pkt = recvd_packet.split("$")
-    parse_packet(split_pkt)
+        split_pkt = recvd_packet.split("$")
+        parse_packet(split_pkt)
+
+if "__name__" == "__main__":
+    ichi_host()
