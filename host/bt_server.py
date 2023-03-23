@@ -6,7 +6,6 @@ import sys
 # TODO: 
 #   joystick code
 #   handle interruptions to socket
-#   speech to text
 #   cursor movement
 
 s = serial.Serial('COM4')

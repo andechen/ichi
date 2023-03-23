@@ -19,7 +19,10 @@ def setup_connection():
     # SET UP CONNECTION
     global s
     s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-    s.connect((host_addr, port))
+    try:
+        s.connect((host_addr, port))
+    except TimeoutError:
+        print("Connection Timeout...")
     print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + str(port))
 
 # SETUP GPIO PINS AND DEBOUNCING
