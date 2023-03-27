@@ -13,8 +13,12 @@ CENTER_Y = 504
 ##################### HELPER FUNCTIONS #####################
 # SETUP BLUETOOTH SOCKET
 def setup_connection():
-    host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
-    port = 4                            # Connect to COM4
+    # ANDE LAPTOP MAC: 7C:50:79:3E:8F:2C
+    # ANDE LAPTOP PORT: 4
+    # LAB DESKTOP MAC: A0:36:BC:DA:1B:68
+    # LAB DESKTOP PORT: 3
+    host_addr = "A0:36:BC:DA:1B:68"     # Host PC's MAC address
+    port = 3                            # Connect to COM4
 
     # SET UP CONNECTION
     global s
