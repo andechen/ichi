@@ -1,2 +1,0 @@
-C:\Users\andec\Documents\ichi\BluetoothRfcommChat\cs\RfcommChat.csproj;x64
-C:\Users\andec\Documents\ichi\BluetoothRfcommChat\cs\tasks\tasks.csproj;x64
