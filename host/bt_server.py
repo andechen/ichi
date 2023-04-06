@@ -33,9 +33,7 @@ def parse_packet(pkt_array):
                  pyautogui.mouseUp(button='right')
         case 'MBM':
             if pkt_array[1] == '1':
-                pyautogui.mouseDown(button='middle')
-            elif pkt_array[1] == '0':
-                 pyautogui.mouseUp(button='middle')
+                pyautogui.click(button='middle')
         case 's2t':
             pyautogui.write(pkt_array[-1])
         case 'SCRL':

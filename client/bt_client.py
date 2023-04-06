@@ -121,11 +121,10 @@ def mb_m_listener():
         else:
             curr_state = 0
             sleep(0.15)
+        print("MBM Down")
         data_stream = "MBM$1\n"
         s.send(data_stream.encode())
         data_stream = ""
-        print(data_stream)
-
     # data_stream = "MBM$0\n"
     # s.send(data_stream.encode())
     # data_stream = ""
