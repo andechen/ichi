@@ -1,7 +1,5 @@
-#! python3 -m pip install -r requirements.txt
 import serial
 import pyautogui
-import sys
 
 # TODO: 
 #   joystick code

@@ -11,8 +11,12 @@ import speech_recognition as sr
 ##################### HELPER FUNCTIONS #####################
 # SETUP BLUETOOTH SOCKET
 def setup_connection():
-    host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
-    port = 4                            # Connect to COM4
+    # ANDE LAPTOP MAC ADDR: 7C:50:79:3E:8F:2C
+    # ANDE LAPTOP PORT: 4
+    # LAB DESKTOP MAC ADDR: A0:36:BC:DA:1B:68
+    # LAB DESKTOP PORT: 3
+    host_addr = "A0:36:BC:DA:1B:68"     # Host PC's MAC address
+    port = 3                            # Connect to port on Host PC
 
     # SET UP CONNECTION
     global s
@@ -122,21 +126,20 @@ def mb_m_listener():
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
     mic_stream = ""
-    print("STARTING RECORDING...")
 
-    # with speech as source:
-    #     print("Say something...")
-    #     audio = r.adjust_for_ambient_noise(source)
-    #     audio = r.listen(source)
+    with speech as source:
+        print("STARTING RECORDING...")
+        audio = r.adjust_for_ambient_noise(source)
+        audio = r.listen(source)
 
-    #     try:
-    #         transcribed_text = r.recognize_google(audio, language = "en-US")
+        try:
+            transcribed_text = r.recognize_google(audio, language = "en-US")
             
-    #         print("You said: " + transcribed_text)
-    #     except sr.UnknownValueError:
-    #         print("Google Speech Recognition could not understand audio")
-    #     except sr.RequestError as e:
-    #         print("Could not request results from Google Speech Recognition service; {0}".format(e))
+            print("You said: " + transcribed_text)
+        except sr.UnknownValueError:
+            print("Google Speech Recognition could not understand audio")
+        except sr.RequestError as e:
+            print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
     #     mic_stream = "s2t$" + transcribed_text
 
