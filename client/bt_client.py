@@ -111,17 +111,18 @@ def mb_m_listener():
     prev_state = 1
     curr_state = 0
     mb_m = read_spi_channel(swt_channel)
+    print(mb_m)
 
-    if mb_m == 1:
-        if prev_state != curr_state:
-            curr_state = 1
-            sleep(0.15)
-        else:
-            curr_state = 0
-            sleep(0.15)
-        data_stream = "MBM$1\n"
-        s.send(data_stream.encode())
-        data_stream = ""
+    # if mb_m == 1:
+    #     if prev_state != curr_state:
+    #         curr_state = 1
+    #         sleep(0.15)
+    #     else:
+    #         curr_state = 0
+    #         sleep(0.15)
+    #     data_stream = "MBM$1\n"
+    #     s.send(data_stream.encode())
+    #     data_stream = ""
 
     # data_stream = "MBM$0\n"
     # s.send(data_stream.encode())
