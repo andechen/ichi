@@ -103,8 +103,9 @@ def joystick_listener():
 
     data_stream = "SCRL$" + str(x_pos) + "$" + str(y_pos) + "\n"
     print(data_stream)
-    s.send(data_stream.encode())
-    data_stream = ""
+    sleep(0.5)
+    # s.send(data_stream.encode())
+    # data_stream = ""
 
 def mb_m_listener():
     prev_state = 1
