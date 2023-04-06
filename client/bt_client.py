@@ -127,9 +127,6 @@ def mb_m_listener():
         s.send(data_stream.encode())
         data_stream = ""
 
-    if toggled == True:
-
-
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
     mic_stream = ""
