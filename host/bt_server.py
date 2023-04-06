@@ -2,7 +2,6 @@ import serial
 import pyautogui
 
 # TODO: 
-#   joystick code
 #   handle interruptions to socket
 #   cursor movement
 
