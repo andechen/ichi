@@ -39,8 +39,8 @@ def parse_packet(pkt_array):
         case 's2t':
             pyautogui.write(pkt_array[-1])
         case 'SCRL':
-            x_pos = pkt_array[1] - CENTER_X
-            y_pos = pkt_array[2] - CENTER_Y
+            x_pos = int(pkt_array[1]) - CENTER_X
+            y_pos = int(pkt_array[2]) - CENTER_Y
             print("X: " + x_pos + " | Y: " + y_pos)
             
 
