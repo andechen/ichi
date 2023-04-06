@@ -112,6 +112,7 @@ def joystick_listener():
 def mb_m_listener():
     prev_state = 1
     curr_state = 0
+    toggled = False
     mb_m = read_spi_channel(swt_channel)
 
     if mb_m == 1:
@@ -125,9 +126,9 @@ def mb_m_listener():
         data_stream = "MBM$1\n"
         s.send(data_stream.encode())
         data_stream = ""
-    # data_stream = "MBM$0\n"
-    # s.send(data_stream.encode())
-    # data_stream = ""
+
+    if toggled == True:
+
 
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
@@ -166,7 +167,7 @@ def ichi_client():
             button_listener(mb_r, "MBR")
             button_listener(ptt, "PTT")
             mb_m_listener()
-            # joystick_listener()
+            joystick_listener()
             # speech_to_text_handler()
 
     except KeyboardInterrupt:
