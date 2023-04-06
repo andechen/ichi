@@ -101,7 +101,7 @@ def joystick_listener():
     x_pos = read_spi_channel(x_channel)
     y_pos = read_spi_channel(y_channel)
 
-    data_stream = "SCRL$" + x_pos + "$" + y_pos + "\n"
+    data_stream = "SCRL$" + str(x_pos) + "$" + str(y_pos) + "\n"
     s.send(data_stream.encode())
     data_stream = ""
 
