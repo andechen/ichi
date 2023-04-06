@@ -12,7 +12,7 @@ s = serial.Serial('COM4')
 # MIN_Y = 1
 # MAX_X = screen_res[0]
 # MAX_Y = screen_res[1]
-
+    
 CENTER_X = 530
 CENTER_Y = 504
 

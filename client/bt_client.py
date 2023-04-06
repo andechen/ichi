@@ -61,6 +61,7 @@ def setup_io():
     global spi
     spi = spidev.SpiDev()
     spi.open(0, 0)
+    spi.max_speed_hz = 1000000
 
 # SETUP MICROPHONE FOR SPEECH TO TEXT
 def setup_mic():
@@ -102,7 +103,8 @@ def joystick_listener():
     y_pos = read_spi_channel(y_channel)
 
     data_stream = "SCRL$" + str(x_pos) + "$" + str(y_pos) + "\n"
-    print(data_stream)
+    print("VRx : {}  VRy : {}".format(x_pos, y_pos))
+    # print(data_stream)
     sleep(0.5)
     # s.send(data_stream.encode())
     # data_stream = ""
@@ -111,18 +113,18 @@ def mb_m_listener():
     prev_state = 1
     curr_state = 0
     mb_m = read_spi_channel(swt_channel)
-    print(mb_m)
 
-    # if mb_m == 1:
-    #     if prev_state != curr_state:
-    #         curr_state = 1
-    #         sleep(0.15)
-    #     else:
-    #         curr_state = 0
-    #         sleep(0.15)
-    #     data_stream = "MBM$1\n"
-    #     s.send(data_stream.encode())
-    #     data_stream = ""
+    if mb_m == 1:
+        if prev_state != curr_state:
+            curr_state = 1
+            sleep(0.15)
+        else:
+            curr_state = 0
+            sleep(0.15)
+        data_stream = "MBM$1\n"
+        s.send(data_stream.encode())
+        data_stream = ""
+        print(data_stream)
 
     # data_stream = "MBM$0\n"
     # s.send(data_stream.encode())
