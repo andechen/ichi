@@ -164,7 +164,7 @@ def ichi_client():
             button_listener(mb_r, "MBR")
             button_listener(ptt, "PTT")
             mb_m_listener()
-            joystick_listener()
+            # joystick_listener()
             # speech_to_text_handler()
 
     except KeyboardInterrupt:
