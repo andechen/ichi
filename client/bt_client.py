@@ -102,6 +102,7 @@ def joystick_listener():
     y_pos = read_spi_channel(y_channel)
 
     data_stream = "SCRL$" + str(x_pos) + "$" + str(y_pos) + "\n"
+    print(data_stream)
     s.send(data_stream.encode())
     data_stream = ""
 
@@ -121,9 +122,9 @@ def mb_m_listener():
         s.send(data_stream.encode())
         data_stream = ""
 
-    data_stream = "MBM$0\n"
-    s.send(data_stream.encode())
-    data_stream = ""
+    # data_stream = "MBM$0\n"
+    # s.send(data_stream.encode())
+    # data_stream = ""
 
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
