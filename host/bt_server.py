@@ -10,11 +10,14 @@ import sys
 
 s = serial.Serial('COM4')
 
-screen_res = pyautogui.size()
-MIN_X = 1
-MIN_Y = 1
-MAX_X = screen_res[0]
-MAX_Y = screen_res[1]
+# screen_res = pyautogui.size()
+# MIN_X = 1
+# MIN_Y = 1
+# MAX_X = screen_res[0]
+# MAX_Y = screen_res[1]
+
+CENTER_X = 530
+CENTER_Y = 504
 
 def parse_packet(pkt_array):
     pkt_array[-1] = pkt_array[-1].replace('\n','')
@@ -38,6 +41,10 @@ def parse_packet(pkt_array):
                  pyautogui.mouseUp(button='middle')
         case 's2t':
             pyautogui.write(pkt_array[-1])
+        case 'SCRL':
+            x_pos = pkt_array[1] - CENTER_X
+            y_pos = pkt_array[2] - CENTER_Y
+            
 
 # def tobii_handler(gazepoint_x, gazepoint_y):
 #     # Position mouse cursor to user gazepoint
