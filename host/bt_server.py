@@ -42,6 +42,7 @@ def parse_packet(pkt_array):
         case 'SCRL':
             x_pos = pkt_array[1] - CENTER_X
             y_pos = pkt_array[2] - CENTER_Y
+            print("X: " + x_pos + " | Y: " + y_pos)
             
 
 # def tobii_handler(gazepoint_x, gazepoint_y):
