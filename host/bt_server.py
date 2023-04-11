@@ -40,7 +40,7 @@ def parse_packet(pkt_array):
             x_delta = int(pkt_array[1])
             y_delta = int(pkt_array[2])
             print("X: " + str(x_delta) + " | Y: " + str(y_delta))
-            pyautogui.scroll(y_delta % 100)      
+            pyautogui.scroll(y_delta // 50)      
 
 # def tobii_handler(gazepoint_x, gazepoint_y):
 #     # Position mouse cursor to user gazepoint
