@@ -3,8 +3,8 @@ import os
 import time
  
 # Define Axis Channels (channel 3 to 7 can be assigned for more buttons / joysticks)
-swt_channel = 1
-vrx_channel = 0
+swt_channel = 0
+vrx_channel = 1
 vry_channel = 2
 #Time delay, which tells how many seconds the value is read out
 delay = 0.5

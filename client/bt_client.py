@@ -8,6 +8,9 @@ from time import sleep
 from adafruit_debouncer import Debouncer
 import speech_recognition as sr
 
+CENTER_X = 0
+CENTER_Y = 534
+
 ##################### HELPER FUNCTIONS #####################
 # SETUP BLUETOOTH SOCKET
 def setup_connection():
@@ -78,10 +81,7 @@ def button_listener(button_obj, button_name):
     # Detect button pressed
     if button_obj.fell:
         print(button_name + " Down")
-        if button_name == 'PTT':
-            speech_to_text_handler()
-        else:
-            data_stream = button_name + "$1\n"
+        data_stream = button_name + "$1\n"
 
     # Detect button released
     if button_obj.rose:
@@ -99,15 +99,16 @@ def read_spi_channel(channel):
     return ((adc[1] & 3) << 8) + adc[2]
 
 def joystick_listener():
-    x_pos = read_spi_channel(x_channel)
-    y_pos = read_spi_channel(y_channel)
+    x_pos = read_spi_channel(x_channel) - CENTER_X
+    y_pos = read_spi_channel(y_channel) - CENTER_Y
 
-    data_stream = "SCRL$" + str(x_pos) + "$" + str(y_pos) + "\n"
-    print("VRx : {}  VRy : {}".format(x_pos, y_pos))
-    # print(data_stream)
-    sleep(0.5)
-    # s.send(data_stream.encode())
-    # data_stream = ""
+    if ((y_pos <= -5) or (y_pos >= 5)):
+        data_stream = "SCRL$" + str(x_pos) + "$" + str(y_pos) + "\n"
+        print("VRx : {}  VRy : {}".format(x_pos, y_pos))
+        # print(data_stream)
+        sleep(0.5)
+        s.send(data_stream.encode())
+        data_stream = ""
 
 def mb_m_listener():
     prev_state = 1
@@ -130,42 +131,50 @@ def mb_m_listener():
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
     mic_stream = ""
+    ptt.update()
 
-    with speech as source:
-        print("STARTING RECORDING...")
-        audio = r.adjust_for_ambient_noise(source)
-        audio = r.listen(source)
+    # Detect button pressed
+    if ptt.fell:
+        print("PTT Down")
 
-        try:
-            transcribed_text = r.recognize_google(audio, language = "en-US")
-            
-            print("You said: " + transcribed_text)
-        except sr.UnknownValueError:
-            print("Google Speech Recognition could not understand audio")
-        except sr.RequestError as e:
-            print("Could not request results from Google Speech Recognition service; {0}".format(e))
+        # Begin recording for speech to text
+        with speech as source:
+            print("STARTING RECORDING...")
+            audio = r.adjust_for_ambient_noise(source)
+            audio = r.listen(source)
 
-    #     mic_stream = "s2t$" + transcribed_text
+            try:
+                transcribed_text = r.recognize_google(audio, language = "en-US")
+                
+                print("You said: " + transcribed_text)
+            except sr.UnknownValueError:
+                print("Google Speech Recognition could not understand audio")
+            except sr.RequestError as e:
+                print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
-    # # Send packet to host PC
-    # if mic_stream != "":
-    #     s.send(mic_stream.encode())
-    #     mic_stream = ""
+    # Detect button released
+    if ptt.rose:
+        print("PTT Up")
+        mic_stream = "s2t$" + transcribed_text
+
+    # Send packet to host PC
+    if mic_stream != "":
+        s.send(mic_stream.encode())
+        mic_stream = ""
 
 ############################################################
 def ichi_client():
     setup_connection()
     setup_io()
-    # setup_mic()
+    setup_mic()
 
     try:
         while True:
             button_listener(mb_l, "MBL")
             button_listener(mb_r, "MBR")
-            button_listener(ptt, "PTT")
             mb_m_listener()
-            joystick_listener()
-            # speech_to_text_handler()
+            # joystick_listener()           # TODO: Validate Continuous Sampling
+            speech_to_text_handler()        # TODO: Validate only record on PTT push
 
     except KeyboardInterrupt:
         s.close()
