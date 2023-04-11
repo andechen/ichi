@@ -8,8 +8,8 @@ from time import sleep
 from adafruit_debouncer import Debouncer
 import speech_recognition as sr
 
-center_x = 0
-center_y = 534
+CENTER_X = 0
+CENTER_Y = 523
 
 ##################### HELPER FUNCTIONS #####################
 # SETUP BLUETOOTH SOCKET
@@ -99,17 +99,16 @@ def read_spi_channel(channel):
     return ((adc[1] & 3) << 8) + adc[2]
 
 def joystick_listener():
-    x_delta = read_spi_channel(x_channel) #- center_x
-    y_delta = read_spi_channel(y_channel) #- center_y
-    print("VRx : {}  VRy : {}".format(x_delta, y_delta))
+    x_delta = read_spi_channel(x_channel) - CENTER_X
+    y_delta = read_spi_channel(y_channel) - CENTER_Y
 
-    # if ((y_delta <= -5) or (y_delta >= 5)):
-    #     data_stream = "SCRL$" + str(x_delta) + "$" + str(y_delta) + "\n"
-    #     print("VRx : {}  VRy : {}".format(x_delta, y_delta))
-    #     # print(data_stream)
-    #     # sleep(0.5)
-    #     s.send(data_stream.encode())
-    #     data_stream = ""
+    if ((y_delta <= -5) or (y_delta >= 5)):
+        data_stream = "SCRL$" + str(x_delta) + "$" + str(y_delta) + "\n"
+        print("VRx : {}  VRy : {}".format(x_delta, y_delta))
+        # print(data_stream)
+        # sleep(0.5)
+        s.send(data_stream.encode())
+        data_stream = ""
 
 def mb_m_listener():
     prev_state = 1
