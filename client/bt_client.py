@@ -146,6 +146,7 @@ def speech_to_text_handler():
                 transcribed_text = r.recognize_google(audio, language = "en-US")
                 
                 print("You said: " + transcribed_text)
+                mic_stream = "s2t$" + transcribed_text
             except sr.UnknownValueError:
                 print("Google Speech Recognition could not understand audio")
             except sr.RequestError as e:
@@ -154,7 +155,7 @@ def speech_to_text_handler():
     # Detect button released
     if ptt.rose:
         print("PTT Up")
-        mic_stream = "s2t$" + transcribed_text
+        # mic_stream = "s2t$" + str(transcribed_text)
 
     # Send packet to host PC
     if mic_stream != "":
