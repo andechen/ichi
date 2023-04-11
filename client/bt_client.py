@@ -46,7 +46,7 @@ def setup_io():
     mb_r = Debouncer(pin_MB_R)
 
     # PUSH TO TALK BUTTON
-    pin_PTT = digitalio.DigitalInOut(board.D23)
+    pin_PTT = digitalio.DigitalInOut(board.D5)
     pin_PTT.direction = digitalio.Direction.INPUT
     pin_PTT.pull = digitalio.Pull.UP
     global ptt
