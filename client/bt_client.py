@@ -8,8 +8,8 @@ from time import sleep
 from adafruit_debouncer import Debouncer
 import speech_recognition as sr
 
-CENTER_X = 0
-CENTER_Y = 534
+center_x = 0
+center_y = 534
 
 ##################### HELPER FUNCTIONS #####################
 # SETUP BLUETOOTH SOCKET
@@ -99,8 +99,8 @@ def read_spi_channel(channel):
     return ((adc[1] & 3) << 8) + adc[2]
 
 def joystick_listener():
-    x_delta = read_spi_channel(x_channel) - CENTER_X
-    y_delta = read_spi_channel(y_channel) - CENTER_Y
+    x_delta = read_spi_channel(x_channel) - center_x
+    y_delta = read_spi_channel(y_channel) - center_y
 
     if ((y_delta <= -5) or (y_delta >= 5)):
         data_stream = "SCRL$" + str(x_delta) + "$" + str(y_delta) + "\n"
