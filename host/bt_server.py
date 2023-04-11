@@ -5,7 +5,7 @@ import pyautogui
 #   handle interruptions to socket
 #   cursor movement
 
-s = serial.Serial('COM4')
+s = serial.Serial('COM3')
 
 # screen_res = pyautogui.size()25
 # MIN_X = 1
