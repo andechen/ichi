@@ -105,7 +105,7 @@ def joystick_listener():
     if ((y_delta <= -25) or (y_delta >= 25)):
         data_stream = "SCRL$" + str(x_delta) + "$" + str(y_delta) + "\n"
         print("VRx : {}  VRy : {}".format(x_delta, y_delta))
-        sleep(0.1)
+        sleep(0.7)
         s.send(data_stream.encode())
         data_stream = ""
 
