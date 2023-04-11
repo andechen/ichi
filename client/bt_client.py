@@ -150,6 +150,7 @@ def speech_to_text_handler():
                 # print("You said: " + transcribed_text)
                 mic_stream = "s2t$t" + transcribed_text
                 print(mic_stream)
+                s.send(mic_stream.encode())
             except sr.UnknownValueError:
                 print("Google Speech Recognition could not understand audio")
             except sr.RequestError as e:
