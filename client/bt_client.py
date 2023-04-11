@@ -11,6 +11,8 @@ import speech_recognition as sr
 CENTER_X = 0
 CENTER_Y = 523
 
+# LED is pin 26
+
 ##################### HELPER FUNCTIONS #####################
 # SETUP BLUETOOTH SOCKET
 def setup_connection():
