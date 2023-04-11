@@ -12,9 +12,6 @@ s = serial.Serial('COM4')
 # MIN_Y = 1
 # MAX_X = screen_res[0]
 # MAX_Y = screen_res[1]
-    
-CENTER_X = 530
-CENTER_Y = 504
 
 def parse_packet(pkt_array):
     pkt_array[-1] = pkt_array[-1].replace('\n','')
