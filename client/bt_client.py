@@ -99,14 +99,14 @@ def read_spi_channel(channel):
     return ((adc[1] & 3) << 8) + adc[2]
 
 def joystick_listener():
-    x_pos = read_spi_channel(x_channel) - CENTER_X
-    y_pos = read_spi_channel(y_channel) - CENTER_Y
+    x_delta = read_spi_channel(x_channel) - CENTER_X
+    y_delta = read_spi_channel(y_channel) - CENTER_Y
 
-    if ((y_pos <= -5) or (y_pos >= 5)):
-        data_stream = "SCRL$" + str(x_pos) + "$" + str(y_pos) + "\n"
-        print("VRx : {}  VRy : {}".format(x_pos, y_pos))
+    if ((y_delta <= -5) or (y_delta >= 5)):
+        data_stream = "SCRL$" + str(x_delta) + "$" + str(y_delta) + "\n"
+        print("VRx : {}  VRy : {}".format(x_delta, y_delta))
         # print(data_stream)
-        sleep(0.5)
+        # sleep(0.5)
         s.send(data_stream.encode())
         data_stream = ""
 

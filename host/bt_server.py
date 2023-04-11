@@ -37,10 +37,10 @@ def parse_packet(pkt_array):
         case 's2t':
             pyautogui.write(pkt_array[-1])
         case 'SCRL':
-            x_pos = int(pkt_array[1]) - CENTER_X
-            y_pos = int(pkt_array[2]) - CENTER_Y
-            print("X: " + str(x_pos) + " | Y: " + str(y_pos))
-            
+            x_delta = int(pkt_array[1])
+            y_delta = int(pkt_array[2])
+            print("X: " + str(x_delta) + " | Y: " + str(y_delta))
+            pyautogui.scroll(y_delta % 100)      
 
 # def tobii_handler(gazepoint_x, gazepoint_y):
 #     # Position mouse cursor to user gazepoint
