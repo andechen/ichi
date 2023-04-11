@@ -99,16 +99,17 @@ def read_spi_channel(channel):
     return ((adc[1] & 3) << 8) + adc[2]
 
 def joystick_listener():
-    x_delta = read_spi_channel(x_channel) - center_x
-    y_delta = read_spi_channel(y_channel) - center_y
+    x_delta = read_spi_channel(x_channel) #- center_x
+    y_delta = read_spi_channel(y_channel) #- center_y
+    print("VRx : {}  VRy : {}".format(x_delta, y_delta))
 
-    if ((y_delta <= -5) or (y_delta >= 5)):
-        data_stream = "SCRL$" + str(x_delta) + "$" + str(y_delta) + "\n"
-        print("VRx : {}  VRy : {}".format(x_delta, y_delta))
-        # print(data_stream)
-        # sleep(0.5)
-        s.send(data_stream.encode())
-        data_stream = ""
+    # if ((y_delta <= -5) or (y_delta >= 5)):
+    #     data_stream = "SCRL$" + str(x_delta) + "$" + str(y_delta) + "\n"
+    #     print("VRx : {}  VRy : {}".format(x_delta, y_delta))
+    #     # print(data_stream)
+    #     # sleep(0.5)
+    #     s.send(data_stream.encode())
+    #     data_stream = ""
 
 def mb_m_listener():
     prev_state = 1
