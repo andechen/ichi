@@ -155,13 +155,11 @@ def speech_to_text_handler():
     # Detect button released
     if ptt.rose:
         print("PTT Up")
-        # mic_stream = "s2t$" + str(transcribed_text)
 
-    # Send packet to host PC
-    if mic_stream != "":
-        s.send(mic_stream.encode())
-        mic_stream = ""
-        s.send(mic_stream.encode())
+        # Send packet to host PC
+        if mic_stream != "" and mic_stream != "s2t$":
+            s.send(mic_stream.encode())
+            mic_stream = ""
 
 ############################################################
 def ichi_client():
