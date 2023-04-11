@@ -161,6 +161,7 @@ def speech_to_text_handler():
     if mic_stream != "":
         s.send(mic_stream.encode())
         mic_stream = ""
+        s.send(mic_stream.encode())
 
 ############################################################
 def ichi_client():
