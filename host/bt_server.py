@@ -6,6 +6,7 @@ import pyautogui
 #   cursor movement
 
 s = serial.Serial('COM3')
+# s = serial.Serial('COM4')
 
 # screen_res = pyautogui.size()25
 # MIN_X = 1

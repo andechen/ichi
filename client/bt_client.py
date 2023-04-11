@@ -20,10 +20,10 @@ def setup_connection():
     # ANDE LAPTOP PORT: 4
     # LAB DESKTOP MAC ADDR: A0:36:BC:DA:1B:68
     # LAB DESKTOP PORT: 3
-    # host_addr = "A0:36:BC:DA:1B:68"     # Host PC's MAC address
-    # port = 3                            # Connect to port on Host PC
-    host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
-    port = 4                            # Connect to port on Host PC
+    host_addr = "A0:36:BC:DA:1B:68"     # Host PC's MAC address
+    port = 3                            # Connect to port on Host PC
+    # host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
+    # port = 4                            # Connect to port on Host PC
 
     # SET UP CONNECTION
     global s
