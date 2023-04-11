@@ -166,15 +166,15 @@ def speech_to_text_handler():
 def ichi_client():
     setup_connection()
     setup_io()
-    setup_mic()
+    # setup_mic()
 
     try:
         while True:
             button_listener(mb_l, "MBL")
             button_listener(mb_r, "MBR")
             mb_m_listener()
-            # joystick_listener()           # TODO: Validate Continuous Sampling
-            speech_to_text_handler()        # TODO: Validate only record on PTT push
+            joystick_listener()           # TODO: Validate Continuous Sampling
+            # speech_to_text_handler()        # TODO: Validate only record on PTT push
 
     except KeyboardInterrupt:
         s.close()
