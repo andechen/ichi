@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // Copyright 2016 Tobii AB (publ). All rights reserved.
 //-----------------------------------------------------------------------
 
@@ -33,6 +33,10 @@ namespace Tobii.Gaming.Examples.SimpleGazeSelection
 		public float FilterSmoothingFactor = 0.15f;
 		private bool _hasHistoricPoint;
 		public float VisualizationDistance = 10f;
+
+		private float ClickDownStart;
+		private float ClickDown;
+		// private float ClickUp;
 	
 		/// <summary>
 		/// Set the lerp color
@@ -43,7 +47,7 @@ namespace Tobii.Gaming.Examples.SimpleGazeSelection
 			_meshRenderer = GetComponent<MeshRenderer>();
 			_lerpColor = _meshRenderer.material.color;
 			_deselectionColor = Color.white;
-		
+			
 		}
 
 		/// <summary>
@@ -61,21 +65,26 @@ namespace Tobii.Gaming.Examples.SimpleGazeSelection
 
 			// Change the color of the cube
 
-			//left click
+			// left click
 			if (_gazeAwareComponent.HasGazeFocus && Input.GetMouseButtonDown(0))
 			{
 				_meshRenderer.material.color = Color.magenta;
-				
-			}
-			//Click and drag
-			if (_gazeAwareComponent.HasGazeFocus && Input.GetMouseButton(0) && gazePoint.IsRecent()){
-				print("Gaze point on Screen (X,Y): " + gazePoint.Viewport.x + ", " + gazePoint.Viewport.y);
-			
-				Vector3 gazePointInWorld = ProjectToPlaneInWorld(gazePoint);
-				transform.position = Smoothify(gazePointInWorld);
+				ClickDownStart = Time.time;
 			}
 
-			//left click
+		
+			//Click and drag
+			if (_gazeAwareComponent.HasGazeFocus && Input.GetMouseButton(0) && gazePoint.IsRecent())
+			{
+				ClickDown = Time.time - ClickDownStart;
+				if (ClickDown >= 0.2f){
+					_meshRenderer.material.color = Color.magenta;
+					Vector3 gazePointInWorld = ProjectToPlaneInWorld(gazePoint);
+					transform.position = Smoothify(gazePointInWorld);
+				}
+			}
+
+			// left click
 			else if (_gazeAwareComponent.HasGazeFocus && Input.GetMouseButtonDown(1))
 			{
 				_meshRenderer.material.color = Color.black;
