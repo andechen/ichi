@@ -217,8 +217,9 @@ def speech_to_text_handler():
                     data = q.get()
                     if rec.AcceptWaveform(data):
                         res = json.loads(rec.Result())
-                        # print(res["text"])
+                        print(res["text"])
                         mic_stream = mic_stream + str(res["text"])
+                        print(mic_stream)
                         packet_written = True
 
                     if dump_fn is not None:
