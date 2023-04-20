@@ -228,6 +228,7 @@ def speech_to_text_handler():
     # Detect button pressed
     if ptt.fell:
         print("PTT Down")
+        s.send("t".encode())
 
         # Begin recording for speech to text
         with MicrophoneStream(RATE, CHUNK) as stream:
