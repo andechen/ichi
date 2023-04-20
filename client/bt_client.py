@@ -13,6 +13,7 @@ import queue
 import sys
 import sounddevice as sd
 from vosk import Model, KaldiRecognizer
+import json
 
 # Joystick noise dampening parameters
 CENTER_X = 0
@@ -92,7 +93,7 @@ def callback(indata, frames, time, status):
     q.put(bytes(indata))
 
 def setup_mic():
-    print("\n\n SETTING UP MICROPHONE AND SPEECH TO TEXT...")
+    print("\nSETTING UP MICROPHONE AND SPEECH TO TEXT...")
     global parser
     global args
     global dump_fn
@@ -202,7 +203,7 @@ def speech_to_text_handler():
     # Detect button pressed
     if ptt.fell:
         print("PTT Down")
-        s.send("t".encode())
+        s.send("t$".encode())
 
         # Begin recording for speech to text
         try:
@@ -215,8 +216,10 @@ def speech_to_text_handler():
                 while packet_written == False:
                     data = q.get()
                     if rec.AcceptWaveform(data):
-                        print(rec.Result())
-                        mic_stream = str(rec.Result())
+                        # print(rec.Result())
+                        res = json.loads(rec.Result())
+                        print(res["text"])
+                        # mic_stream = rec.Result()
                         packet_written = True
 
                     if dump_fn is not None:
