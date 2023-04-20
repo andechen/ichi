@@ -92,6 +92,7 @@ def callback(indata, frames, time, status):
     q.put(bytes(indata))
 
 def setup_mic():
+    print("\n\n SETTING UP MICROPHONE AND SPEECH TO TEXT...")
     global parser
     global args
     global dump_fn
@@ -135,6 +136,8 @@ def setup_mic():
         dump_fn = open(args.filename, "wb")
     else:
         dump_fn = None
+
+    print("\nSETUP COMPLETE\n\n")
 
 # LISTEN FOR BUTTON PRESS AND RELEASE
 def button_listener(button_obj, button_name):
@@ -205,7 +208,7 @@ def speech_to_text_handler():
         try:
             with sd.RawInputStream(samplerate=args.samplerate, blocksize = 8000, device=args.device,
                     dtype="int16", channels=1, callback=callback):
-                print("Starting recording...")
+                print("\tStarting recording...")
 
                 rec = KaldiRecognizer(model, args.samplerate)
                 packet_written = False
@@ -213,7 +216,7 @@ def speech_to_text_handler():
                     data = q.get()
                     if rec.AcceptWaveform(data):
                         print(rec.Result())
-                        mic_stream = rec.Result()
+                        mic_stream = str(rec.Result())
                         packet_written = True
 
                     if dump_fn is not None:
