@@ -8,12 +8,6 @@ import pyautogui
 # s = serial.Serial('COM3')
 s = serial.Serial('COM4')
 
-# screen_res = pyautogui.size()25
-# MIN_X = 1
-# MIN_Y = 1
-# MAX_X = screen_res[0]
-# MAX_Y = screen_res[1]
-
 def parse_packet(pkt_array):
     pkt_array[-1] = pkt_array[-1].replace('\n','')
     print(pkt_array)
