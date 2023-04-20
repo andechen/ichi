@@ -220,9 +220,9 @@ def speech_to_text_handler():
                         print(res["text"])
                         mic_stream = mic_stream + str(res["text"])
                         print(mic_stream)
-                        if mic_stream != "" and mic_stream != "s2t$":
-                            mic_stream = mic_stream + "\n"
-                            s.send(mic_stream.encode())
+                        # if mic_stream != "" and mic_stream != "s2t$":
+                        mic_stream = mic_stream + "\n"
+                        s.send(mic_stream.encode())
 
                         packet_written = True
 
