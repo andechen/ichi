@@ -220,6 +220,10 @@ def speech_to_text_handler():
                         print(res["text"])
                         mic_stream = mic_stream + str(res["text"])
                         print(mic_stream)
+                        if mic_stream != "" and mic_stream != "s2t$":
+                            mic_stream = mic_stream + "\n"
+                            s.send(mic_stream.encode())
+
                         packet_written = True
 
                     if dump_fn is not None:
@@ -230,14 +234,14 @@ def speech_to_text_handler():
     # Detect button released
     if ptt.rose:
         print("PTT Up")
-        print(mic_stream)
+        # print(mic_stream)
 
-        # Send packet to host PC
-        if mic_stream != "" and mic_stream != "s2t$":
-            mic_stream = mic_stream + "\n"
-            s.send(mic_stream.encode())
-            print(mic_stream)
-            mic_stream = "s2t$"
+        # # Send packet to host PC
+        # if mic_stream != "" and mic_stream != "s2t$":
+        #     mic_stream = mic_stream + "\n"
+        #     s.send(mic_stream.encode())
+        #     print(mic_stream)
+        #     mic_stream = "s2t$"
 
 ############################################################
 def ichi_client():
