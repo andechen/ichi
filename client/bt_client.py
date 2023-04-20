@@ -1,4 +1,5 @@
 #! python3 -m pip install -r requirements.txt
+from __future__ import division
 import socket
 import math
 import spidev
@@ -6,7 +7,6 @@ import board
 import digitalio
 from time import sleep
 from adafruit_debouncer import Debouncer
-from __future__ import division
 import re
 import sys
 import os
