@@ -38,16 +38,7 @@ def parse_packet(pkt_array):
             x_delta = int(pkt_array[1])
             y_delta = int(pkt_array[2])
             print("X: " + str(x_delta) + " | Y: " + str(y_delta))
-            pyautogui.scroll(y_delta // 2)      
-
-# def tobii_handler(gazepoint_x, gazepoint_y):
-#     # Position mouse cursor to user gazepoint
-#     pyautogui.moveTo(gazepoint_x, gazepoint_y)
-#     # TODO: don't move cursor off screen
-#     if (gazepoint_x > MAX_X):
-#         gazepoint_x = gazepoint_x - 1
-#     if (gazepoint_y) > MAX_Y:
-#         gazepoint_y = gazepoint_y - 1
+            pyautogui.scroll(y_delta // 2)
 
 def ichi_host():
     while True:

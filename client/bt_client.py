@@ -6,12 +6,91 @@ import board
 import digitalio
 from time import sleep
 from adafruit_debouncer import Debouncer
-import speech_recognition as sr
+from __future__ import division
+import re
+import sys
+import os
+from google.cloud import speech
+import pyaudio
+from six.moves import queue
 
+# Joystick noise dampening parameters
 CENTER_X = 0
 CENTER_Y = 523
 
+# Audio recording parameters
+RATE = 16000
+CHUNK = int(RATE / 10)  # 100ms
+
 # LED is pin 26
+
+################## SPEECH TO TEXT CLASSES ##################
+class MicrophoneStream(object):
+    """Opens a recording stream as a generator yielding the audio chunks."""
+
+    def __init__(self, rate, chunk):
+        self._rate = rate
+        self._chunk = chunk
+
+        # Create a thread-safe buffer of audio data
+        self._buff = queue.Queue()
+        self.closed = True
+
+    def __enter__(self):
+        self._audio_interface = pyaudio.PyAudio()
+        self._audio_stream = self._audio_interface.open(
+            format=pyaudio.paInt16,
+            # The API currently only supports 1-channel (mono) audio
+            # https://goo.gl/z757pE
+            channels=1,
+            rate=self._rate,
+            input=True,
+            frames_per_buffer=self._chunk,
+            # Run the audio stream asynchronously to fill the buffer object.
+            # This is necessary so that the input device's buffer doesn't
+            # overflow while the calling thread makes network requests, etc.
+            stream_callback=self._fill_buffer,
+        )
+
+        self.closed = False
+
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self._audio_stream.stop_stream()
+        self._audio_stream.close()
+        self.closed = True
+        # Signal the generator to terminate so that the client's
+        # streaming_recognize method will not block the process termination.
+        self._buff.put(None)
+        self._audio_interface.terminate()
+
+    def _fill_buffer(self, in_data, frame_count, time_info, status_flags):
+        """Continuously collect data from the audio stream, into the buffer."""
+        self._buff.put(in_data)
+        return None, pyaudio.paContinue
+
+    def generator(self):
+        while not self.closed:
+            # Use a blocking get() to ensure there's at least one chunk of
+            # data, and stop iteration if the chunk is None, indicating the
+            # end of the audio stream.
+            chunk = self._buff.get()
+            if chunk is None:
+                return
+            data = [chunk]
+
+            # Now consume whatever other data's still buffered.
+            while True:
+                try:
+                    chunk = self._buff.get(block=False)
+                    if chunk is None:
+                        return
+                    data.append(chunk)
+                except queue.Empty:
+                    break
+
+            yield b"".join(data)
 
 ##################### HELPER FUNCTIONS #####################
 # SETUP BLUETOOTH SOCKET
@@ -68,12 +147,24 @@ def setup_io():
     spi.open(0, 0)
     spi.max_speed_hz = 1000000
 
-# SETUP MICROPHONE FOR SPEECH TO TEXT
+# SETUP MICROPHONE
 def setup_mic():
-    global r
-    r = sr.Recognizer()
-    global speech
-    speech = sr.Microphone(device_index=1)  
+    # See http://g.co/cloud/speech/docs/languages
+    # for a list of supported languages.
+    language_code = "en-US"  # a BCP-47 language tag
+
+    global client
+    client = speech.SpeechClient()
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=RATE,
+        language_code=language_code,
+    )
+
+    global streaming_config
+    streaming_config = speech.StreamingRecognitionConfig(
+        config=config, interim_results=True
+    )
 
 # LISTEN FOR BUTTON PRESS AND RELEASE
 def button_listener(button_obj, button_name):
@@ -139,22 +230,41 @@ def speech_to_text_handler():
         print("PTT Down")
 
         # Begin recording for speech to text
-        with speech as source:
-            print("STARTING RECORDING...")
-            audio = r.adjust_for_ambient_noise(source)
-            audio = r.listen(source)
+        with MicrophoneStream(RATE, CHUNK) as stream:
+            audio_generator = stream.generator()
+            requests = (
+                speech.StreamingRecognizeRequest(audio_content=content)
+                for content in audio_generator
+            )
 
-            try:
-                transcribed_text = r.recognize_google(audio, language = "en-US")
-                
-                # print("You said: " + transcribed_text)
-                mic_stream = "s2t$t" + transcribed_text
-                print(mic_stream)
-                s.send(mic_stream.encode())
-            except sr.UnknownValueError:
-                print("Google Speech Recognition could not understand audio")
-            except sr.RequestError as e:
-                print("Could not request results from Google Speech Recognition service; {0}".format(e))
+            responses = client.streaming_recognize(streaming_config, requests)
+
+            num_chars_printed = 0
+
+            for response in responses:
+                if not response.results:
+                    continue
+
+                result = response.results[0]
+                if not result.alternatives:
+                    continue
+
+                # Display the transcription of the top alternative.
+                transcript = result.alternatives[0].transcript
+
+                overwrite_chars = " " * (num_chars_printed - len(transcript))
+
+                if not result.is_final:
+                    sys.stdout.write(transcript + overwrite_chars + "\r")
+                    sys.stdout.flush()
+
+                    num_chars_printed = len(transcript)
+
+                else:
+                    print(transcript + overwrite_chars)
+                    mic_stream = "s2t$" + transcript + overwrite_chars
+
+                    num_chars_printed = 0
 
     # Detect button released
     if ptt.rose:
@@ -184,4 +294,5 @@ def ichi_client():
         print('\n')
 
 if __name__ == "__main__":
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'cybernetic-hue-384302-2e9e296cbd96.json'
     ichi_client()
