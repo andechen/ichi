@@ -193,6 +193,7 @@ def mb_m_listener():
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
     mic_stream = ""
+    packet_written = False
     ptt.update()
 
     # Detect button pressed
@@ -207,13 +208,16 @@ def speech_to_text_handler():
                 print("Starting recording...")
 
                 rec = KaldiRecognizer(model, args.samplerate)
-                # while True:
-                data = q.get()
-                if rec.AcceptWaveform(data):
-                    print(rec.Result())
+                packet_written = False
+                while packet_written:
+                    data = q.get()
+                    if rec.AcceptWaveform(data):
+                        print(rec.Result())
+                        mic_stream = rec.Result()
+                        packet_written = True
 
-                if dump_fn is not None:
-                    dump_fn.write(data)
+                    if dump_fn is not None:
+                        dump_fn.write(data)
         except Exception as e:
             parser.exit(type(e).__name__ + ": " + str(e))
 
@@ -225,8 +229,6 @@ def speech_to_text_handler():
         if mic_stream != "" and mic_stream != "s2t$":
             s.send(mic_stream.encode())
             mic_stream = ""
-
-        parser.exit(0)
 
 ############################################################
 def ichi_client():
