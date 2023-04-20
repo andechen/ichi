@@ -209,7 +209,7 @@ def speech_to_text_handler():
 
                 rec = KaldiRecognizer(model, args.samplerate)
                 packet_written = False
-                while packet_written:
+                while packet_written == False:
                     data = q.get()
                     if rec.AcceptWaveform(data):
                         print(rec.Result())
