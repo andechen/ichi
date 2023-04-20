@@ -216,7 +216,6 @@ def speech_to_text_handler():
                 while packet_written == False:
                     data = q.get()
                     if rec.AcceptWaveform(data):
-                        # print(rec.Result())
                         res = json.loads(rec.Result())
                         # print(res["text"])
                         mic_stream = mic_stream + str(res["text"])
@@ -230,6 +229,7 @@ def speech_to_text_handler():
     # Detect button released
     if ptt.rose:
         print("PTT Up")
+        print(mic_stream)
 
         # Send packet to host PC
         if mic_stream != "" and mic_stream != "s2t$":
