@@ -249,10 +249,10 @@ def ichi_client():
     try:
         print("\nLOGS:")
         while True:
-            #button_listener(mb_l, "MBL")
-            #button_listener(mb_r, "MBR")
+            button_listener(mb_l, "MBL")
+            button_listener(mb_r, "MBR")
             # mb_m_listener()
-            #joystick_listener()           # TODO: Validate Continuous Sampling
+            joystick_listener()           # TODO: Validate Continuous Sampling
             speech_to_text_handler()        # TODO: Validate only record on PTT push
 
     except KeyboardInterrupt:
