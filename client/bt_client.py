@@ -212,6 +212,9 @@ def speech_to_text_handler():
 
                     if dump_fn is not None:
                         dump_fn.write(data)
+
+                    if ptt.rose:
+                        break
         except Exception as e:
             parser.exit(type(e).__name__ + ": " + str(e))
 
