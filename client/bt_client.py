@@ -279,20 +279,20 @@ def speech_to_text_handler():
 ############################################################
 def ichi_client():
     setup_connection()
-    setup_io()
+    #setup_io()
     setup_mic()
 
-    try:
-        while True:
-            button_listener(mb_l, "MBL")
-            button_listener(mb_r, "MBR")
-            # mb_m_listener()
-            joystick_listener()           # TODO: Validate Continuous Sampling
-            speech_to_text_handler()        # TODO: Validate only record on PTT push
+    # try:
+    #     while True:
+    #         #button_listener(mb_l, "MBL")
+    #         #button_listener(mb_r, "MBR")
+    #         # mb_m_listener()
+    #         #joystick_listener()           # TODO: Validate Continuous Sampling
+    #         #speech_to_text_handler()        # TODO: Validate only record on PTT push
 
-    except KeyboardInterrupt:
-        s.close()
-        print('\n')
+    # except KeyboardInterrupt:
+    #     s.close()
+    #     print('\n')
 
 if __name__ == "__main__":
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'cybernetic-hue-384302-2e9e296cbd96.json'
