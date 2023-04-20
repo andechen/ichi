@@ -138,8 +138,6 @@ def setup_mic():
     else:
         dump_fn = None
 
-    print("\nSETUP COMPLETE\n\n")
-
 # LISTEN FOR BUTTON PRESS AND RELEASE
 def button_listener(button_obj, button_name):
     data_stream = ""
@@ -246,7 +244,10 @@ def ichi_client():
     setup_io()
     setup_mic()
 
+    print("\nSETUP COMPLETE")
+
     try:
+        print("\nLOGS:")
         while True:
             #button_listener(mb_l, "MBL")
             #button_listener(mb_r, "MBR")
