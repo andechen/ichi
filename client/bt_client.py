@@ -279,7 +279,7 @@ def speech_to_text_handler():
 ############################################################
 def ichi_client():
     setup_connection()
-    #setup_io()
+    setup_io()
     setup_mic()
 
     try:
