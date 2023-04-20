@@ -203,7 +203,6 @@ def speech_to_text_handler():
     # Detect button pressed
     if ptt.fell:
         print("PTT Down")
-        s.send("t$".encode())
 
         # Begin recording for speech to text
         try:
@@ -219,7 +218,7 @@ def speech_to_text_handler():
                         # print(rec.Result())
                         res = json.loads(rec.Result())
                         print(res["text"])
-                        # mic_stream = rec.Result()
+                        mic_stream = "s2t$"+ str(res["text"])
                         packet_written = True
 
                     if dump_fn is not None:

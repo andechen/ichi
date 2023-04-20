@@ -27,6 +27,7 @@ def parse_packet(pkt_array):
             if pkt_array[1] == '1':
                 pyautogui.click(button='middle')
         case 's2t':
+            pyautogui.write("t")
             pyautogui.write(pkt_array[-1])
         case 'SCRL':
             x_delta = int(pkt_array[1])
