@@ -4,8 +4,4 @@ spidev
 python-time
 Adafruit-Blinka
 adafruit-circuitpython-debouncer
-google-cloud-speech
-os-sys
-PyAudio
-regex
-future
+sounddevice

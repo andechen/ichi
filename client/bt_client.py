@@ -145,12 +145,12 @@ def button_listener(button_obj, button_name):
 
     # Detect button pressed
     if button_obj.fell:
-        # print(button_name + " Down")
+        print(button_name + " Down")
         data_stream = button_name + "$1\n"
 
     # Detect button released
     if button_obj.rose:
-        # print(button_name + " Up")
+        print(button_name + " Up")
         data_stream = button_name + "$0\n"
 
     # Send packet to host PC
