@@ -210,11 +210,12 @@ def speech_to_text_handler():
                 while True:
                     data = q.get()
                     if rec.AcceptWaveform(data):
-                        print(data)
                         print(rec.Result())
 
                     if dump_fn is not None:
                         dump_fn.write(data)
+
+                    print(ptt.rose)
         except Exception as e:
             parser.exit(type(e).__name__ + ": " + str(e))
 
