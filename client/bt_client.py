@@ -198,6 +198,7 @@ def mb_m_listener():
 
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
+    global mic_stream
     mic_stream = "s2t$"
     packet_written = False
     ptt.update()
