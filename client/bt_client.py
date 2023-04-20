@@ -147,17 +147,18 @@ def button_listener(button_obj, button_name):
 
     # Detect button pressed
     if button_obj.fell:
-        print(button_name + " Down")
+        # print(button_name + " Down")
         data_stream = button_name + "$1\n"
 
     # Detect button released
     if button_obj.rose:
-        print(button_name + " Up")
+        # print(button_name + " Up")
         data_stream = button_name + "$0\n"
 
     # Send packet to host PC
     if data_stream != "":
         s.send(data_stream.encode())
+        print(data_stream)
         data_stream = ""
 
 # JOYSTICK HELPER FUNCTIONS
@@ -189,14 +190,15 @@ def mb_m_listener():
         else:
             curr_state = 0
             sleep(0.5)
-        print("MBM Down")
+        # print("MBM Down")
         data_stream = "MBM$1\n"
         s.send(data_stream.encode())
+        print(data_stream)
         data_stream = ""
 
 # SPEECH TO TEXT HANDLER
 def speech_to_text_handler():
-    mic_stream = ""
+    mic_stream = "s2t$"
     packet_written = False
     ptt.update()
 
@@ -208,7 +210,7 @@ def speech_to_text_handler():
         try:
             with sd.RawInputStream(samplerate=args.samplerate, blocksize = 8000, device=args.device,
                     dtype="int16", channels=1, callback=callback):
-                print("\tStarting recording...")
+                print("Starting recording...")
 
                 rec = KaldiRecognizer(model, args.samplerate)
                 packet_written = False
@@ -217,8 +219,8 @@ def speech_to_text_handler():
                     if rec.AcceptWaveform(data):
                         # print(rec.Result())
                         res = json.loads(rec.Result())
-                        print(res["text"])
-                        mic_stream = "s2t$"+ str(res["text"])
+                        # print(res["text"])
+                        mic_stream = mic_stream + str(res["text"])
                         packet_written = True
 
                     if dump_fn is not None:
@@ -232,8 +234,10 @@ def speech_to_text_handler():
 
         # Send packet to host PC
         if mic_stream != "" and mic_stream != "s2t$":
+            mic_stream = mic_stream + "\n"
             s.send(mic_stream.encode())
-            mic_stream = ""
+            print(mic_stream)
+            mic_stream = "s2t$"
 
 ############################################################
 def ichi_client():

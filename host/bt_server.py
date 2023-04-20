@@ -34,8 +34,6 @@ def parse_packet(pkt_array):
             y_delta = int(pkt_array[2])
             print("X: " + str(x_delta) + " | Y: " + str(y_delta))
             pyautogui.scroll(y_delta // 2)
-        case 't':
-            pyautogui.write('t')
 
 def ichi_host():
     while True:
