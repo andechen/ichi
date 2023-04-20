@@ -94,6 +94,8 @@ def callback(indata, frames, time, status):
 def setup_mic():
     global parser
     global args
+    global dump_fn
+    global model
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(
@@ -118,6 +120,21 @@ def setup_mic():
     parser.add_argument(
         "-m", "--model", type=str, help="language model; e.g. en-us, fr, nl; default is en-us")
     args = parser.parse_args(remaining)
+
+    if args.samplerate is None:
+        device_info = sd.query_devices(args.device, "input")
+        # soundfile expects an int, sounddevice provides a float:
+        args.samplerate = int(device_info["default_samplerate"])
+    
+    if args.model is None:
+        model = Model(lang="en-us")
+    else:
+        model = Model(lang=args.model)
+
+    if args.filename:
+        dump_fn = open(args.filename, "wb")
+    else:
+        dump_fn = None
 
 # LISTEN FOR BUTTON PRESS AND RELEASE
 def button_listener(button_obj, button_name):
@@ -185,21 +202,6 @@ def speech_to_text_handler():
 
         # Begin recording for speech to text
         try:
-            if args.samplerate is None:
-                device_info = sd.query_devices(args.device, "input")
-                # soundfile expects an int, sounddevice provides a float:
-                args.samplerate = int(device_info["default_samplerate"])
-                
-            if args.model is None:
-                model = Model(lang="en-us")
-            else:
-                model = Model(lang=args.model)
-
-            if args.filename:
-                dump_fn = open(args.filename, "wb")
-            else:
-                dump_fn = None
-
             with sd.RawInputStream(samplerate=args.samplerate, blocksize = 8000, device=args.device,
                     dtype="int16", channels=1, callback=callback):
                 print("Starting recording...")
@@ -208,13 +210,11 @@ def speech_to_text_handler():
                 while True:
                     data = q.get()
                     if rec.AcceptWaveform(data):
+                        print(data)
                         print(rec.Result())
 
                     if dump_fn is not None:
                         dump_fn.write(data)
-
-                    if ptt.rose:
-                        break
         except Exception as e:
             parser.exit(type(e).__name__ + ": " + str(e))
 
