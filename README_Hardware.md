@@ -19,6 +19,7 @@
 ### Controller Image
 ![controller](https://user-images.githubusercontent.com/60196943/235365123-d277ea2b-d3c5-401a-89c5-5e07fab8c438.png)
 ### CAD Diagrams of 3D printed controller
+The CAD files used to print the controller are located in the CAD files folder. 
 Large Button 
 ![Large_Button_Drawing](https://user-images.githubusercontent.com/60196943/235370122-159330f7-593d-4b48-806c-62ace187ebf5.jpg)
 Small Button
