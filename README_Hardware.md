@@ -16,8 +16,11 @@
 ## Controller 
 ### Circuit Diagram
 ![circuit](https://user-images.githubusercontent.com/60196943/235364928-e4cb3a6f-1d31-42ff-a8e2-0e9d899382b8.png)
+
 ### Controller Image
 ![controller](https://user-images.githubusercontent.com/60196943/235365123-d277ea2b-d3c5-401a-89c5-5e07fab8c438.png)
+![Wiring](https://user-images.githubusercontent.com/60196943/235370242-beb087c2-de2b-4e12-a860-c6ff7ec91cbc.jpeg)
+
 ### CAD Diagrams of 3D printed controller
 The CAD files used to print the controller are located in the CAD files folder. 
 Large Button 
@@ -28,3 +31,4 @@ Top View
 ![Top_Drawing](https://user-images.githubusercontent.com/60196943/235370128-27b56ca2-2e74-4766-bbee-b6bf2f8c92ff.jpg)
 Bottom View
 ![Bottom_Drawing](https://user-images.githubusercontent.com/60196943/235370114-ee1d3a53-a749-4566-94e3-a49d80ad8314.jpg)
+
