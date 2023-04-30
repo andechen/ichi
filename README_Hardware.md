@@ -13,5 +13,8 @@
 | GND | Grounding connections for all components |
 | 3V3 | 3.3V power for all components|
 
-## Controller Circuit Diagram
+## Controller 
+### Circuit Diagram
 ![circuit](https://user-images.githubusercontent.com/60196943/235364928-e4cb3a6f-1d31-42ff-a8e2-0e9d899382b8.png)
+### Controller Image
+![controller](https://user-images.githubusercontent.com/60196943/235365123-d277ea2b-d3c5-401a-89c5-5e07fab8c438.png)
