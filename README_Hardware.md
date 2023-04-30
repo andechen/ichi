@@ -14,3 +14,4 @@
 | 3V3 | 3.3V power for all components|
 
 ## Controller Circuit Diagram
+![circuit](https://user-images.githubusercontent.com/60196943/235364928-e4cb3a6f-1d31-42ff-a8e2-0e9d899382b8.png)
