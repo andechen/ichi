@@ -32,3 +32,6 @@ Top View
 Bottom View
 ![Bottom_Drawing](https://user-images.githubusercontent.com/60196943/235370114-ee1d3a53-a749-4566-94e3-a49d80ad8314.jpg)
 
+## Tobii Eye Tracker
+To set up the Tobii Eye Tracker 5, the driver software, Tobii Experience Software for Windows, must be installed. 
+The eye tracker must be mounted on the screen it will be used on. Once the device is plugged in via USB, the eye tracker is ready to go. 
