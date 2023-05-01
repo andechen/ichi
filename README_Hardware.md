@@ -26,8 +26,10 @@
 | Protoboard | 1 | Digikey | $4.50 |
 | Mini USB Microphone | 1 | Digikey | $5.95 |
 | Tactile Switch Buttons | 3 | Digikey | $0.69 |
+| Micro-SD Card | 1 | MicroCenter | $3.99 |
+| Micro-USB Male to USB-A Female Ribbon Cable | 1 | Amazon | $8.99 |
 | 3D Printed Controller Shell | 1 | N/A | N/A |
-| | | | $375.78 |
+| | | | $388.76 |
 
 ### Circuit Diagram
 ![circuit](https://user-images.githubusercontent.com/60196943/235364928-e4cb3a6f-1d31-42ff-a8e2-0e9d899382b8.png)
