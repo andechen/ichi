@@ -14,7 +14,9 @@ The Python script running on the Raspberry Pi within the controller should begin
 - sounddevice
 - jsons
 - vosk
+Ensure that you are using Python 3 and the most up to date version of pip.
 ## Controller Driver
 The controller driver running on the host PC can be executed by simply running the "py bt_server.py" command in the command line. The dependent libraries can be installed using pip as follows:
 - PySerial
 - PyAutoGUI
+Ensure that you are using Python 3 and the most up to date version of pip.
