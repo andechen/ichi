@@ -1,7 +1,7 @@
-#Current Status : May 5, 2023
+# Current Status : May 5, 2023
 The current state of the project is complete for the deliverables/goals we set out for this academic year, that being emulating computer mouse and keyboard functionalities with the use of a controller and Tobii Eye Tracker 5. As of right now, ICHI is compatible with Windows 10 OS.
 
-##FUTURE improvements we’ve established: 
+## FUTURE improvements we’ve established: 
 
 -  More **accurate** eye tracking camera and sensors with a **smaller gaze point area**
 - Access gaze point data** outside of Unity** with more comprehensive eye tracker SDK
@@ -11,7 +11,7 @@ The current state of the project is complete for the deliverables/goals we set o
 - **Higher resolution 3D print** to improve strength of controller walls
 
 
-##Warnings/Things To Keep In Mind:
+## Warnings/Things To Keep In Mind:
 
 - Approval is needed in order to download and use Tobii SDK 
 - Tobii Eye Tracker 5 only works with Tobii Experience App open
