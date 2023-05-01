@@ -14,6 +14,21 @@
 | 3V3 | 3.3V power for all components|
 
 ## Controller 
+### Bill of Materials
+| Component | Quantity | Vendor | Total Cost | 
+| ------------ | -------| -------| -------|
+| Tobii Eye Tracker 5 | 1 | Tobii | $220.15 |
+| Raspberry Pi Zero 2W | 1 | Amazon | $89.90 |
+| PiSugar 1200 mAh Battery Module | 1 | Amazon | $38.99 |
+| MCP3008 8-Channel 10-Bit ADC | 1 | Adafruit | $9.00 |
+| Analog 2-Axis Joystick | 1 | Digikey | $4.50 |
+| Joystick Breakout Board | 1 | Digikey | $2.10 |
+| Protoboard | 1 | Digikey | $4.50 |
+| Mini USB Microphone | 1 | Digikey | $5.95 |
+| Tactile Switch Buttons | 3 | Digikey | $0.69 |
+| 3D Printed Controller Shell | 1 | N/A | N/A |
+| | | | $375.78 |
+
 ### Circuit Diagram
 ![circuit](https://user-images.githubusercontent.com/60196943/235364928-e4cb3a6f-1d31-42ff-a8e2-0e9d899382b8.png)
 
