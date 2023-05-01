@@ -1,20 +1,5 @@
 # Hardware Report
-## Hardware Pinout
-| Raspberry Pi Pin # | Usage/Description |
-| ------------ | -------|
-| GPIO4 | Right push button input |
-| GPIO22 | Left push button input |
-| GPIO10 | Serial Data In for Analog-to-Digital Converter (ADC) for Joystick |
-| GPIO9 |Serial Data Out for ADC |
-| GPIO11 | Clock for ADC |
-| GPIO6 | Push to Talk button input |
-| GPIO8 | Chip Select/ Shut Down for ADC |
-| 5V | 5V connection to battery pack |
-| GND | Grounding connections for all components |
-| 3V3 | 3.3V power for all components|
-
-## Controller 
-### Bill of Materials
+## Bill of Materials
 | Component | Quantity | Vendor | Total Cost | 
 | ------------ | -------| -------| -------|
 | Tobii Eye Tracker 5 | 1 | Tobii | $220.15 |
@@ -31,6 +16,21 @@
 | 3D Printed Controller Shell | 1 | N/A | N/A |
 | | | | $388.76 |
 
+## Hardware Pinout
+| Raspberry Pi Pin # | Usage/Description |
+| ------------ | -------|
+| GPIO4 | Right push button input |
+| GPIO22 | Left push button input |
+| GPIO10 | Serial Data In for Analog-to-Digital Converter (ADC) for Joystick |
+| GPIO9 |Serial Data Out for ADC |
+| GPIO11 | Clock for ADC |
+| GPIO6 | Push to Talk button input |
+| GPIO8 | Chip Select/ Shut Down for ADC |
+| 5V | 5V connection to battery pack |
+| GND | Grounding connections for all components |
+| 3V3 | 3.3V power for all components|
+
+## Controller 
 ### Circuit Diagram
 ![circuit](https://user-images.githubusercontent.com/60196943/235364928-e4cb3a6f-1d31-42ff-a8e2-0e9d899382b8.png)
 
