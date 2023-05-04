@@ -40,8 +40,8 @@ def setup_connection():
     # SET UP CONNECTION
     global s
     s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+    print("ATTEMPTING TO CONNECT TO " + host_addr + " PORT " + str(port))
     while not connected:
-        print("ATTEMPTING TO CONNECT TO " + host_addr + " PORT " + str(port))
         try:
             s.connect((host_addr, port))
             connected = True
@@ -49,7 +49,6 @@ def setup_connection():
         except socket.error:
             print("CONNECTION REFUSED")
             sleep(2)
-
 
 # SEND PACKET OVER BLUETOOTH
 def packet_sender(packet_data): 
