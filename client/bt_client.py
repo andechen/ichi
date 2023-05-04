@@ -35,7 +35,7 @@ def setup_connection():
     global connected
     host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
     port = 4                            # Connect to port on Host PC
-    conencted = False
+    connected = False
 
     # SET UP CONNECTION
     global s
