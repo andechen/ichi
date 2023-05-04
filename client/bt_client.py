@@ -46,7 +46,7 @@ def setup_connection():
             s.connect((host_addr, port))
             connected = True
             print("CONNECTION ESTABLISHED")
-        except s.error:
+        except socket.error:
             print("CONNECTION REFUSED")
             sleep(2)
 
