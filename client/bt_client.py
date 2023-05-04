@@ -32,16 +32,42 @@ def setup_connection():
     # port = 3                            # Connect to port on Host PC
     global host_addr
     global port
+    global connected
     host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
     port = 4                            # Connect to port on Host PC
+    conencted = False
 
     # SET UP CONNECTION
     global s
     s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-    s.connect((host_addr, port))
-    global connected
-    connected = True
-    print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + str(port))
+    while not connected:
+        print("ATTEMPTING TO CONNECT TO " + host_addr + " PORT " + str(port))
+        try:
+            s.connect((host_addr, port))
+            connected = True
+            print("CONNECTION ESTABLISHED")
+        except s.error:
+            print("CONNECTION REFUSED")
+            sleep(2)
+
+
+# SEND PACKET OVER BLUETOOTH
+def packet_sender(packet_data): 
+    try:
+        s.send(packet_data.encode())
+    except s.error:
+        print("CONNECTION LOST")
+        connected = False
+        s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)  
+        while not connected:  
+            print("TRYING TO RECONNECT...")
+            # attempt to reconnect, otherwise sleep for 2 seconds  
+            try:
+                s.connect((host_addr, port))  
+                connected = True  
+                print("CONNECTION ESTABLISHED")
+            except socket.error:  
+                sleep(2)
 
 # SETUP GPIO PINS AND DEBOUNCING
 def setup_io():
@@ -238,24 +264,6 @@ def speech_to_text_handler():
     # Detect button released
     if ptt.rose:
         print("PTT Up")
-
-# SEND PACKET OVER BLUETOOTH
-def packet_sender(packet_data): 
-    try:
-        s.send(packet_data.encode())
-    except s.error:
-        print("CONNECTION LOST")
-        connected = False
-        s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)  
-        while not connected:  
-            print("TRYING TO RECONNECT...")
-            # attempt to reconnect, otherwise sleep for 2 seconds  
-            try:
-                s.connect((host_addr, port))  
-                connected = True  
-                print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + str(port))
-            except socket.error:  
-                sleep(2)
 
 ############################################################
 def ichi_client():
