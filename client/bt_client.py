@@ -30,6 +30,8 @@ def setup_connection():
     # LAB DESKTOP PORT: 3
     # host_addr = "A0:36:BC:DA:1B:68"     # Host PC's MAC address
     # port = 3                            # Connect to port on Host PC
+    global host_addr
+    global port
     host_addr = "7C:50:79:3E:8F:2C"     # Host PC's MAC address
     port = 4                            # Connect to port on Host PC
 
@@ -37,6 +39,8 @@ def setup_connection():
     global s
     s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
     s.connect((host_addr, port))
+    global connected
+    connected = True
     print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + str(port))
 
 # SETUP GPIO PINS AND DEBOUNCING
@@ -155,7 +159,7 @@ def button_listener(button_obj, button_name):
 
     # Send packet to host PC
     if data_stream != "":
-        s.send(data_stream.encode())
+        packet_sender(data_stream)
         print(data_stream)
         data_stream = ""
 
@@ -172,7 +176,7 @@ def joystick_listener():
         data_stream = "SCRL$" + str(x_delta) + "$" + str(y_delta) + "\n"
         print("VRx : {}  VRy : {}".format(x_delta, y_delta))
         sleep(0.07)
-        s.send(data_stream.encode())
+        packet_sender(data_stream)
         data_stream = ""
 
 def mb_m_listener():
@@ -190,7 +194,7 @@ def mb_m_listener():
             sleep(0.5)
         # print("MBM Down")
         data_stream = "MBM$1\n"
-        s.send(data_stream.encode())
+        packet_sender(data_stream)
         print(data_stream)
         data_stream = ""
 
@@ -222,7 +226,7 @@ def speech_to_text_handler():
                         print(mic_stream)
                         # if mic_stream != "" and mic_stream != "s2t$":
                         mic_stream = mic_stream + "\n"
-                        s.send(mic_stream.encode())
+                        packet_sender(mic_stream)
 
                         packet_written = True
 
@@ -234,14 +238,24 @@ def speech_to_text_handler():
     # Detect button released
     if ptt.rose:
         print("PTT Up")
-        # print(mic_stream)
 
-        # # Send packet to host PC
-        # if mic_stream != "" and mic_stream != "s2t$":
-        #     mic_stream = mic_stream + "\n"
-        #     s.send(mic_stream.encode())
-        #     print(mic_stream)
-        #     mic_stream = "s2t$"
+# SEND PACKET OVER BLUETOOTH
+def packet_sender(packet_data): 
+    try:
+        s.send(packet_data.encode())
+    except s.error:
+        print("CONNECTION LOST")
+        connected = False
+        s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)  
+        while not connected:  
+            print("TRYING TO RECONNECT...")
+            # attempt to reconnect, otherwise sleep for 2 seconds  
+            try:
+                s.connect((host_addr, port))  
+                connected = True  
+                print("CONNECTION ESTABLISHED WITH " + host_addr + " PORT " + str(port))
+            except socket.error:  
+                sleep(2)
 
 ############################################################
 def ichi_client():
@@ -257,8 +271,8 @@ def ichi_client():
             button_listener(mb_l, "MBL")
             button_listener(mb_r, "MBR")
             # mb_m_listener()
-            joystick_listener()           # TODO: Validate Continuous Sampling
-            speech_to_text_handler()        # TODO: Validate only record on PTT push
+            joystick_listener()
+            speech_to_text_handler()
 
     except KeyboardInterrupt:
         s.close()

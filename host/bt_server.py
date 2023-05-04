@@ -1,9 +1,9 @@
 import serial
 import pyautogui
 
-# TODO: 
+# TODO:
 #   handle interruptions to socket
-#   cursor movement
+#   speech to text indicator led
 
 # s = serial.Serial('COM3')
 s = serial.Serial('COM4')
