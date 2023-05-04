@@ -52,12 +52,12 @@ def setup_connection():
 
 # SEND PACKET OVER BLUETOOTH
 def packet_sender(packet_data): 
+    s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)  
     try:
         s.send(packet_data.encode())
-    except s.error:
+    except socket.error:
         print("CONNECTION LOST")
         connected = False
-        s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)  
         while not connected:  
             print("TRYING TO RECONNECT...")
             # attempt to reconnect, otherwise sleep for 2 seconds  
