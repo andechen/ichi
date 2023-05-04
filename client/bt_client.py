@@ -41,7 +41,7 @@ def setup_connection():
     global s
     s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
     print("ATTEMPTING TO CONNECT TO " + host_addr + " PORT " + str(port))
-    while not connected:
+    while connected is False:
         try:
             s.connect((host_addr, port))
             connected = True
