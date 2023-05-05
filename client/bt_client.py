@@ -57,7 +57,7 @@ def packet_sender(packet_data):
     except socket.error:
         print("CONNECTION LOST")
         connected = False
-        while not connected:  
+        while connected is False:  
             print("TRYING TO RECONNECT...")
             # attempt to reconnect, otherwise sleep for 2 seconds  
             try:
