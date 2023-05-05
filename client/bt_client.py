@@ -235,8 +235,7 @@ def speech_to_text_handler():
 
         # Begin recording for speech to text
         try:
-            with sd.RawInputStream(samplerate=args.samplerate, blocksize = 8000, device=args.device,
-                    dtype="int16", channels=1, callback=callback):
+            with sd.RawInputStream(samplerate=args.samplerate, blocksize = 8000, device=args.device, dtype="int16", channels=1, callback=callback):
                 print("Starting recording...")
 
                 rec = KaldiRecognizer(model, args.samplerate)
@@ -277,7 +276,7 @@ def ichi_client():
             button_listener(mb_l, "MBL")
             button_listener(mb_r, "MBR")
             # mb_m_listener()
-            joystick_listener()
+            # joystick_listener()
             speech_to_text_handler()
 
     except KeyboardInterrupt:
